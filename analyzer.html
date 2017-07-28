@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html class="theme-next muse use-motion">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>liukelin - elastic 分词插件</title>
+<style type="text/css">
+/*table.hovertable {
+    font-family: verdana,arial,sans-serif;
+    font-size:11px;
+    color:#333333;
+    border-width: 1px;
+    border-color: #999999;
+    border-collapse: collapse;
+}
+table.hovertable th {
+    background-color:#c3dde0;
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+}*/
+/*table.hovertable tr {
+    background-color:#d4e3e5;
+}*/
+table.hovertable td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+}
+
+table.hovertable td:hover{
+    /*background-color: red ;*/
+    border:1px solid red;
+}
+div.dd span {
+    background-color: #a9c6c9;
+    padding:5px 0;
+}
+
+</style>
+
+<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+</head>
+
+<body style="padding:5px 15px">
+<div style="padding:5px 0">
+    词句：
+    <input type="text" id="word" style="width:250px" value="12" >
+
+    插件：
+    <select id="plugins">
+      <option value ="ik" title="">ik</option>
+    </select>
+
+    模式：
+    <select id="way_type">
+      <option value ="ik_smart" title="ik_smart：会做最粗粒度的拆分；已被分出的词语将不会再次被其它词语占有">ik_smart</option>
+      <option value ="ik_max_word" title="ik_max_word：会将文本做最细粒度的拆分；尽可能多的拆分出词语">ik_max_word</option>
+    </select>
+
+    <input type="button" name="" id="search" value="搜索" style="border:2px solid green;">
+    <!-- <input type="button" name="" id="" value="测试" onClick="test()"> -->
+</div>
+
+<div>
+<div class="dd">
+    <span>下水线,</span>
+    <span>下水线,</span>
+</div>
+
+<!-- Table goes in the document BODY -->
+<table class="hovertable" id="list">
+    
+</table>
+
+</div>
+
+<script type="text/javascript">
+
+    $(function(){
+
+        $('#search').click(function(){
+            $.ajax({
+                type: 'POST',
+                data:{
+                    word:$('#word').val(),
+                    plugins:$('#plugins').val(),
+                    way_type:$('#way_type').val()
+                },
+                url: 'http://wechaapi2.liukelin.top',
+                dataType: 'json',
+                success: function(data){
+                    if (data.c>=0) {
+                        if (data.path && data.path.length>0) {
+                            // 初始化旧路径
+                            $("td[is_path=1]").attr('style','');
+
+                            $.each(data.path,function(key,value){
+                                //标记路径
+                                $('#location_'+value.x+'-'+value.y).attr('style','background-color: green;');
+                                $('#location_'+value.x+'-'+value.y).attr('is_path','1');
+                            });
+                        }else{
+                            alert('获取路径失败');
+                        }
+                    }else{
+                        alert(data.msg);
+                    }
+                }
+            });
+        });
+
+    });
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
