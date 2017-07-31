@@ -14,7 +14,7 @@ $params = array(
     'type' => 'test-ik-smart',
     "query" => array( 
             "match" => array( 
-                "content" : "应用程序层是一个附加层",
+                "content"=>"应用程序层是一个附加层",
                  // '_id' => 1, 
             )
         ),
