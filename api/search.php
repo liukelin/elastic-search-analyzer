@@ -7,11 +7,17 @@ require_once(__DIR__.'/elastic/vendor/autoload.php');
 $hosts = array('http://127.0.0.1:9200');
 $client = Elasticsearch\ClientBuilder::create()->setHosts($hosts)->build();
 // $client = $client->getElasticClient();
+// $client->index = 'test-ik';
+// $client->type = 'test-ik-smart';
+
+$params = array();
+$params['index'] = 'test-ik';
+$params['type'] = 'test-ik-smart';
 
 // 查询
-$params = array(
-    'index' => 'test-ik',
-    'type' => 'test-ik-smart',
+$params['body'] = array(
+    // 'index' => 'test-ik',
+    // 'type' => 'test-ik-smart',
     "query" => array( 
             "match" => array( 
                 "content"=>"应用程序层是一个附加层",
@@ -22,7 +28,7 @@ $params = array(
             "pre_tags" => array("<tag1>", "<tag2>"),
             "post_tags" => array("</tag1>", "</tag2>"),
             "fields" => array( 
-                "content" => array()
+                "content" => (object) array(), // 这里API需要的正确格式是：{} 而不是 []
             )
         )
 );
