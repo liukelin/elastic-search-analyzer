@@ -3,13 +3,20 @@
  * 提供远程 字扩展词字典、远程扩展停止词字典 
  *
  * ik 接收两个返回的头部属性 Last-Modified 和 ETag，只要其中一个有变化，就会触发更新，ik 会每分钟获取一次
+ *
  * liukelin
+ * 
+ * http://xxx/api/custom_word.php?action=hot
+ * http://xxx/api/custom_word.php?action=stop
+ * 
  */
-$action = $_GET['action'];
+
+$action = isset($_GET['action'])?$_GET['action']:null;
 $dir = __DIR__.'/words/';
 $words = '';
 
-$action = 'hot';
+// $action = 'hot';
+
 switch ($action) {
 
     case 'hot': // 扩展词
@@ -25,7 +32,7 @@ switch ($action) {
         break;  
     case 'stop': // 扩展停止词
 
-        $dir = $dir.'hot/';
+        $dir = $dir.'stop/';
         $file = scandir($dir);
         foreach ($file as $key => $v) {
             $words .= @include($dir.$v);
@@ -42,5 +49,5 @@ switch ($action) {
 EOF;
     header('Last-Modified: '.gmdate('D, d M Y H:i:s', time()).' GMT', true, 200);
     header('ETag: "5816f349-19"');
-    echo $s;
+    exit($s);
 }
