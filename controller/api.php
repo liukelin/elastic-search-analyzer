@@ -15,6 +15,8 @@ $client = Elasticsearch\ClientBuilder::create()->setHosts($hosts)->build();
 
 $action = isset_key($_REQUEST, 'action', null);
 
+$action = 'analyze';
+
 switch ($action) {
     case 'search': // 搜索
 

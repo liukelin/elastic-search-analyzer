@@ -68,9 +68,9 @@ div.analyze_div span {
 
 <div>
 
-ik_max_word:<div class="analyze_div" id="analyze_span"></div>
+ik_max_word:<div class="analyze_div" id="analyze_span1"></div>
 <br/>
-ik_smart:<div class="analyze_div" id="analyze_span"></div>
+ik_smart:<div class="analyze_div" id="analyze_span2"></div>
 
 <!-- Table goes in the document BODY -->
 <table class="hovertable" id="list">
@@ -96,16 +96,23 @@ ik_smart:<div class="analyze_div" id="analyze_span"></div>
                 url: '/elastic-search-analyzer/controller/api.php',
                 dataType: 'json',
                 success: function(data){
-                    html = '';
-                    if (data.length>0 && data.tokens && data.tokens.length>0) {
-                        $.each(data.tokens, function(key,val){
-                            html += '<span>'+val.token+'</span>';
-                        }); 
-
+                    html1 = '';
+                    if (data.length>0) {
+                        if (data.ik_max_word && data.ik_max_word.tokens && data.ik_max_word.tokens.length>0) {
+                            $.each(data.ik_smart.tokens, function(key,val){
+                                html1 += '<span>'+val.token+'</span>';
+                            }); 
+                        }
+                        if (data.ik_smart && data.ik_smart.tokens && data.ik_smart.tokens.length>0) {
+                            $.each(data.ik_smart.tokens, function(key,val){
+                                html2 += '<span>'+val.token+'</span>';
+                            }); 
+                        }
                     }else{
                         alert('error');
                     }
-                    $('#analyze_span').html(html);
+                    $('#analyze_span1').html(html1);
+                    $('#analyze_span2').html(html2);
                 }
             });
 
