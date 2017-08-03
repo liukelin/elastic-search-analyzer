@@ -37,7 +37,7 @@ switch ($action) {
         $file = scandir($dir);
         foreach ($file as $key => $v) {
             $words .= @include($dir.$v);
-            $words .<<<'EOF'
+            $words .= <<<'EOF'
 EOF; // 添加一个换行符
      
         }
