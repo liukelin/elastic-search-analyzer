@@ -2,7 +2,7 @@
 require_once(__DIR__.'/elastic/vendor/autoload.php'); // 引入第三方 elasticsearch 操作库
 
 $es = array(
-        'host':'http://127.0.0.1:9200',
+        'host'=>'http://127.0.0.1:9200',
     );
 
 // $client = new Elasticsearch\Client('127.0.0.1:9200');
