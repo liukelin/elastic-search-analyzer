@@ -15,8 +15,6 @@ $client = Elasticsearch\ClientBuilder::create()->setHosts($hosts)->build();
 
 $action = isset_key($_REQUEST, 'action', null);
 
-$action = 'analyze';
-
 switch ($action) {
     case 'search': // 搜索
 
@@ -55,7 +53,6 @@ switch ($action) {
         foreach ($ik_types as $key => $val) {
             $url = "{$es['host']}/_analyze?pretty&analyzer={$val}";
             $output = curl_($url, json_encode(array('text'=>$wd)), 'post');
-            print_r($output);
             $data[$val] = json_decode($output);
         }
 
