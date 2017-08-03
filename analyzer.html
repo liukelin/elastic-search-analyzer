@@ -96,10 +96,11 @@ ik_smart:<div class="analyze_div" id="analyze_span2"></div>
                 url: '/elastic-search-analyzer/controller/api.php',
                 dataType: 'json',
                 success: function(data){
-                    html1 = '';
+                    var html1 = '';
+                    var html2 = '';
                     if (data) {
                         if (data.ik_max_word && data.ik_max_word.tokens && data.ik_max_word.tokens.length>0) {
-                            $.each(data.ik_smart.tokens, function(key,val){
+                            $.each(data.ik_max_word.tokens, function(key,val){
                                 html1 += '<span>'+val.token+'</span>';
                             }); 
                         }
