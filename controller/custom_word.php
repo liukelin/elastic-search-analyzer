@@ -37,7 +37,7 @@ switch ($action) {
         $file = scandir($dir);
         foreach ($file as $key => $v) {
             $words .= @include($dir.$v);
-            $words .= "\r\n";
+            $words .= "\n\r";
         }
         $words = trim($words);
 
