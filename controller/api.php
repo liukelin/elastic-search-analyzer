@@ -25,21 +25,25 @@ switch ($action) {
         $params['type'] = 'test-ik-smart';
 
         // 查询
-        $params['body'] = array(
-            "query" => array( 
-                    "match" => array( 
-                        "content"=> $word,
-                         // '_id' => 1, 
+        $params['body'] = array();
+        if ($word) {
+            $params['body'] = array(
+                "query" => array( 
+                        "match" => array( 
+                            "content"=> $word,
+                             // '_id' => 1, 
+                        )
+                    ),
+                "highlight" => array( 
+                        "pre_tags" => array("<span class='bg1'>", "<span class='bg2'>"),
+                        "post_tags" => array("</span>", "</span>"),
+                        "fields" => array( 
+                            "content" => (object) array(), // 这里API需要的正确格式是:{}空字典，而不是[]空数组
+                        )
                     )
-                ),
-            "highlight" => array( 
-                    "pre_tags" => array("<span class='bg1'>", "<span class='bg2'>"),
-                    "post_tags" => array("</span>", "</span>"),
-                    "fields" => array( 
-                        "content" => (object) array(), // 这里API需要的正确格式是:{}空字典，而不是[]空数组
-                    )
-                )
-        );
+            );
+        }
+        
         $ret = $client->search($params);
 
         $data = array('total'=>0);

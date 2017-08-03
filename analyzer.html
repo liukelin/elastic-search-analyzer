@@ -99,7 +99,7 @@ div.analyze_div span {
     $(function(){
 
         $('#search').click(function(){
-            $('#div1').show();
+            
             // analyze
             $.ajax({
                 type: 'POST',
@@ -126,6 +126,11 @@ div.analyze_div span {
                         }
                     }else{
                         alert('error.');
+                    }
+                    if (html1!='' || html2!='') {
+                        $('#div1').show();
+                    }else{
+                        $('#div1').hide();
                     }
                     $('#analyze_span1').html(html1);
                     $('#analyze_span2').html(html2);
@@ -154,6 +159,9 @@ div.analyze_div span {
                         }
                     }else{
                         alert('error.');
+                    }
+                    if (html=='') {
+                        html='<div class="div2">没有记录.</div>';
                     }
                     $('#list').html(html);
                 }
