@@ -40,9 +40,15 @@ switch ($action) {
                     )
                 )
         );
-        $rtn = $client->search($params);
+        $ret = $client->search($params);
 
-        print_r($rtn);
+        $data = array('total'=>0);
+        if (isset($ret['hits'])) {
+            $data['total'] = (int)$ret['hits']['total'];
+            $data['list'] = $ret['hits']['hits'];
+        }
+        exit(json_encode($data));
+
         break;
     case 'analyze': // 分词
         $word = isset_key($_REQUEST, 'word', '');
@@ -131,6 +137,35 @@ _analyze:
 ]
 }
 
-
+search
+{
+"took": 7,
+"timed_out": false,
+"_shards": {
+"total": 5,
+"successful": 5,
+"failed": 0
+},
+"hits": {
+"total": 1,
+"max_score": 0.28488502,
+"hits": [
+{
+"_index": "test-ik",
+"_type": "test-ik-smart",
+"_id": "1",
+"_score": 0.28488502,
+"_source": {
+"content": "应用程序层是一个附加层"
+},
+"highlight": {
+"content": [
+"<tag1>应用</tag1>程序层是一个附加层"
+]
+}
+}
+]
+}
+}
 
  */
