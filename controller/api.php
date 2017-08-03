@@ -55,6 +55,7 @@ switch ($action) {
         foreach ($ik_types as $key => $val) {
             $url = "{$es['host']}/_analyze?pretty&analyzer={$val}";
             $output = curl_($es['host'], array('text'=>$wd), 'post');
+            print_r($output);
             $data[$val] = json_decode($output);
         }
 
