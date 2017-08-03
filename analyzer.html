@@ -97,7 +97,7 @@ ik_smart:<div class="analyze_div" id="analyze_span2"></div>
                 dataType: 'json',
                 success: function(data){
                     html1 = '';
-                    if (data.length>0) {
+                    if (data) {
                         if (data.ik_max_word && data.ik_max_word.tokens && data.ik_max_word.tokens.length>0) {
                             $.each(data.ik_smart.tokens, function(key,val){
                                 html1 += '<span>'+val.token+'</span>';
