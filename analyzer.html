@@ -38,15 +38,20 @@ div.analyze_div span {
     padding:0 5px;
     margin:0 3px;
 }
-.bg1 span{
+.bg1{
     font-weight:bold;
     color:#F00;
 }
-.bg2 span{
+.bg2{
     font-weight:bold;
     color:#F00;
 }
 .div1{
+    padding:5px 5px;
+    border:1px solid #C0C0C0;
+}
+.div2{
+    margin:5px 3px;
     padding:5px 5px;
     border:1px solid #C0C0C0;
 }
@@ -93,7 +98,7 @@ div.analyze_div span {
     $(function(){
 
         $('#search').click(function(){
-
+            $('#div1').show();
             // analyze
             $.ajax({
                 type: 'POST',
@@ -143,7 +148,7 @@ div.analyze_div span {
                     if (data) {
                         if (data.list && data.list.length>0) {
                             $.each(data.list, function(key,val){
-                                html += '<div class="div1">'+val.highlight.content[0]+'</div>';
+                                html += '<div class="div2">'+val.highlight.content[0]+'</div>';
                             }); 
                         }
                     }else{
