@@ -1,4 +1,7 @@
 <?php
+set_time_limit(5);
+ini_set("display_errors", "On");
+error_reporting(E_ALL | E_STRICT);
 /**
  * 提供远程 字扩展词字典、远程扩展停止词字典 
  *
@@ -51,6 +54,6 @@ switch ($action) {
 EOF;
     // 为了避免对es造成不必要的压力，最好做成更新了词库 再改变头部属性 time()
     header('Last-Modified: '.gmdate('D, d M Y H:i:s', time()).' GMT', true, 200);
-    header('ETag: "5816f349-20"');
+    header('ETag: "5816f349-19"');
     exit($s);
 }
