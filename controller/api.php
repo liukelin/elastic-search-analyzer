@@ -33,8 +33,8 @@ switch ($action) {
                     )
                 ),
             "highlight" => array( 
-                    "pre_tags" => array("<tag1>", "<tag2>"),
-                    "post_tags" => array("</tag1>", "</tag2>"),
+                    "pre_tags" => array("<span class='bg1'>", "<span class='bg2'>"),
+                    "post_tags" => array("</span>", "</span>"),
                     "fields" => array( 
                         "content" => (object) array(), // 这里API需要的正确格式是:{}空字典，而不是[]空数组
                     )
@@ -42,6 +42,7 @@ switch ($action) {
         );
         $rtn = $client->search($params);
 
+        print_r($rtn);
         break;
     case 'analyze': // 分词
         $word = isset_key($_REQUEST, 'word', '');

@@ -26,6 +26,9 @@ table.hovertable th {
     background-color:#d4e3e5;
 }*/
 
+div.analyze_div  {
+    margin:5px 5px;
+}
 div.analyze_div span:hover{
     /*background-color: red ;*/
     border:1px solid red;
@@ -33,7 +36,19 @@ div.analyze_div span:hover{
 div.analyze_div span {
     background-color: #a9c6c9;
     padding:0 5px;
-    margin:0 8px;
+    margin:0 3px;
+}
+.bg1 span{
+    font-weight:bold;
+    color:#F00;
+}
+.bg2 span{
+    font-weight:bold;
+    color:#F00;
+}
+.div1{
+    padding:5px 5px;
+    border:1px solid #C0C0C0;
 }
 
 </style>
@@ -44,10 +59,10 @@ div.analyze_div span {
 <body style="padding:5px 15px">
 <div style="padding:5px 0">
     词句：
-    <input type="text" id="word" style="width:250px" value="12" >
+    <input type="text" id="word" style="width:350px;height:25px" value="" >
 
     插件：
-    <select id="plugins">
+    <select id="plugins" >
       <option value ="ik" title="">ik</option>
     </select>
 
@@ -57,21 +72,20 @@ div.analyze_div span {
       <option value ="ik_smart" title="ik_smart：会做最粗粒度的拆分；已被分出的词语将不会再次被其它词语占有">ik_smart</option>
     </select>
 
-    <input type="button" name="" id="search" value="搜索" style="border:2px solid green;">
+    <input type="button" name="" id="search" value="搜索" style="border:2px solid green;height:25px">
     <!-- <input type="button" name="" id="" value="测试" onClick="test()"> -->
 </div>
 
-<div>
 
-ik_max_word:<div class="analyze_div" id="analyze_span1"></div>
-<br/>
-ik_smart:<div class="analyze_div" id="analyze_span2"></div>
-
+<div class="div1" id="div1" style="display: none">
+    ik_max_word:
+    <div class="analyze_div" id="analyze_span1"><span>asdas</span><span>asdas</span></div>
+    ik_smart:
+    <div class="analyze_div" id="analyze_span2"><span>asdas</span><span>asdas</span></div>
+</div>
 <!-- Table goes in the document BODY -->
-<table class="hovertable" id="list">
+<div class="" id="list">
     
-</table>
-
 </div>
 
 <script type="text/javascript">
@@ -105,44 +119,33 @@ ik_smart:<div class="analyze_div" id="analyze_span2"></div>
                             }); 
                         }
                     }else{
-                        alert('error');
+                        alert('error.');
                     }
                     $('#analyze_span1').html(html1);
                     $('#analyze_span2').html(html2);
                 }
             });
 
-            /**
+            
             // search
             $.ajax({
                 type: 'POST',
                 data:{
+                    action:'search',
                     word:$('#word').val(),
                     plugins:$('#plugins').val(),
                     way_type:$('#way_type').val()
                 },
-                url: 'http://wechaapi2.liukelin.top',
+                url: '/elastic-search-analyzer/controller/api.php',
                 dataType: 'json',
                 success: function(data){
-                    if (data.c>=0) {
-                        if (data.path && data.path.length>0) {
-                            // 初始化旧路径
-                            $("td[is_path=1]").attr('style','');
-
-                            $.each(data.path,function(key,value){
-                                //标记路径
-                                $('#location_'+value.x+'-'+value.y).attr('style','background-color: green;');
-                                $('#location_'+value.x+'-'+value.y).attr('is_path','1');
-                            });
-                        }else{
-                            alert('获取路径失败');
-                        }
+                    if (data) {
+                        
                     }else{
-                        alert(data.msg);
+                        alert('error.');
                     }
                 }
             });
-            **/
 
 
 
