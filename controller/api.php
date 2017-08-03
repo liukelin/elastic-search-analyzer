@@ -18,7 +18,7 @@ $action = isset_key($_REQUEST, 'action', null);
 switch ($action) {
     case 'search': // 搜索
 
-        $wd = isset_key($_REQUEST, 'wd', '');
+        $word = isset_key($_REQUEST, 'word', '');
 
         $params = array();
         $params['index'] = 'test-ik';
@@ -28,7 +28,7 @@ switch ($action) {
         $params['body'] = array(
             "query" => array( 
                     "match" => array( 
-                        "content"=> $wd,
+                        "content"=> $word,
                          // '_id' => 1, 
                     )
                 ),
@@ -44,7 +44,7 @@ switch ($action) {
 
         break;
     case 'analyze': // 分词
-        $wd = isset_key($_REQUEST, 'wd', '');
+        $word = isset_key($_REQUEST, 'word', '');
         $ik_type = isset_key($_REQUEST, 'ik_type', '');
 
         $ik_types = $ik_type?array($ik_type):array('ik_max_word','ik_smart');
@@ -52,7 +52,7 @@ switch ($action) {
         $data = array();
         foreach ($ik_types as $key => $val) {
             $url = "{$es['host']}/_analyze?pretty&analyzer={$val}";
-            $output = curl_($url, json_encode(array('text'=>$wd)), 'post');
+            $output = curl_($url, json_encode(array('text'=>$word)), 'post');
             $data[$val] = json_decode($output);
         }
 
