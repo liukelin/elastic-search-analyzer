@@ -46,6 +46,13 @@ div.analyze_div span {
     font-weight:bold;
     color:#F00;
 }
+
+.div0{
+    padding:5px 0;
+    width:100%;
+}
+
+
 .div1{
     margin:5px 5px;
     padding:5px 5px;
@@ -57,13 +64,30 @@ div.analyze_div span {
     border:1px solid #C0C0C0;
 }
 
+.button1{
+    padding:5px 5px;
+    border:2px solid #77DDFF;
+    height:25px;
+}
+
+.button2{
+    padding:5px 5px;
+    border:2px solid #77DDFF;
+    height:25px;
+    
+}
+
+.button1 .button2 hover{
+    border:1px solid red;
+}
+
 </style>
 
 <script type="text/javascript" src="./js/jquery-1.10.2.min.js"></script>
 </head>
 
 <body style="padding:5px 15px">
-<div style="padding:5px 0">
+<div class="div0">
     词句：
     <input type="text" id="word" style="width:350px;height:25px" value="" >&nbsp;&nbsp;
 
@@ -78,8 +102,14 @@ div.analyze_div span {
       <option value ="ik_smart" title="ik_smart：会做最粗粒度的拆分；已被分出的词语将不会再次被其它词语占有">ik_smart</option>
     </select>&nbsp;&nbsp;
 
-    <input type="button" name="" id="search" value="搜索" style="border:2px solid green;height:25px">
-    <!-- <input type="button" name="" id="" value="测试" onClick="test()"> -->
+    <input type="button" name="" id="search" value="搜索" class="button1">
+    
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="button" name="" id="" value="新增测试文章" style="" onClick="test()" class="button2">
+    <input type="button" name="" id="" value="添加分词" style="" onClick="test()" class="button2">
+    <input type="button" name="" id="" value="添加屏蔽分词" onClick="test()" class="button2">
+    <input type="button" name="" id="" value="添加同义词" onClick="test()" class="button2">
+
 </div>
 
 
