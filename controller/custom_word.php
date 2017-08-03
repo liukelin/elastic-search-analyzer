@@ -29,7 +29,7 @@ switch ($action) {
         $file = scandir($dir);
         foreach ($file as $key => $v) {
             $words .= @include($dir.$v);
-            $words .= "\n";
+            $words .= "\r\n";
         }
         $words = trim($words);
 
@@ -40,7 +40,7 @@ switch ($action) {
         $file = scandir($dir);
         foreach ($file as $key => $v) {
             $words .= @include($dir.$v);
-            $words .= "\n"; // 添加一个换行符
+            $words .= "\r\n"; // 添加一个换行符
      
         }
         $words = trim($words);
@@ -53,6 +53,7 @@ switch ($action) {
         {$words}
 EOF;
     // 为了避免对es造成不必要的压力，最好做成更新了词库 再改变头部属性 time()
+    header("Content-type: text/html; charset=utf-8"); 
     header('Last-Modified: '.gmdate('D, d M Y H:i:s', time()).' GMT', true, 200);
     header('ETag: "5816f349-19"');
     exit($s);
