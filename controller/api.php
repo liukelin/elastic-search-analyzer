@@ -47,10 +47,7 @@ switch ($action) {
         $wd = isset_key($_REQUEST, 'wd', '');
         $ik_type = isset_key($_REQUEST, 'ik_type', '');
 
-        $ik_types = array('ik_max_word','ik_smart');
-        if ($ik_type) {
-            $ik_types = $ik_type;
-        }
+        $ik_types = $ik_type?array($ik_type):array('ik_max_word','ik_smart');
 
         $data = array();
         foreach ($ik_types as $key => $val) {
@@ -101,3 +98,38 @@ function curl_($url, $data, $action='get'){
     curl_close($ch);
     return $output;
 }
+
+
+/**
+_analyze: 
+{
+"tokens": [
+{
+"token": "马",
+"start_offset": 0,
+"end_offset": 1,
+"type": "CN_WORD",
+"position": 0
+}
+,
+{
+"token": "克莱",
+"start_offset": 1,
+"end_offset": 3,
+"type": "CN_WORD",
+"position": 1
+}
+,
+{
+"token": "莱",
+"start_offset": 3,
+"end_offset": 4,
+"type": "CN_WORD",
+"position": 2
+}
+]
+}
+
+
+
+ */
