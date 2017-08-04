@@ -3,6 +3,8 @@ require_once(__DIR__.'/elastic/vendor/autoload.php'); // 引入第三方 elastic
 
 $es = array(
         'host'=>'http://127.0.0.1:9200',
+        'index'=>'test-ik',
+        'type'=>'test-ik-doc'
     );
 
 // $client = new Elasticsearch\Client('127.0.0.1:9200');
@@ -18,11 +20,12 @@ $action = isset_key($_REQUEST, 'action', null);
 switch ($action) {
     case 'search': // 搜索
 
-        $word = isset_key($_REQUEST, 'word', '');
+        $word = isset_key($_REQUEST, 'word', null);
+        $word = isset_key($_REQUEST, 'word', null);
 
         $params = array();
-        $params['index'] = 'test-ik';
-        $params['type'] = 'test-ik-smart';
+        $params['index'] = $es['index'];
+        $params['type'] = $es['type'];
 
         // 查询
         $params['body'] = array();
@@ -49,7 +52,16 @@ switch ($action) {
         $data = array('total'=>0);
         if (isset($ret['hits'])) {
             $data['total'] = (int)$ret['hits']['total'];
-            $data['list'] = $ret['hits']['hits'];
+
+            foreach ($ret['hits']['hits']; as $key => $val) {
+                if ($word) { // 搜索列表
+                    $content = isset($val['highlight']['content'])?$val['highlight']['content'][0]:$val['highlight']['content1'][0]
+                    $data['list'][] = array('id'=>$val['_id'],'content'=>$content);
+                }else{ // 全部列表
+                    $data['list'][] = array('id'=>$val['_id'],'content'=>$val['_source']['content']);
+                }
+            }
+            
         }
         exit(json_encode($data));
 
@@ -72,6 +84,29 @@ switch ($action) {
         break;
     case 'stop': // 获取
 
+        break;
+    case 'insert': // 添加测试文章
+
+        $content = isset_key($_REQUEST, 'content', null);
+
+        $data = array('ret'=>0,'msg'=>'success');
+        if ($content) {
+            $params = array(
+                'index' => $es['index'],
+                'type' => $es['type'],
+                'id' => time(),
+                'body' => array(
+                        'content' => $content,
+                        'content1' => $content,
+                    )
+            );
+            $response = $client->index($params);
+            // print_r($response);
+            $data['response'] = $response;
+        }
+        exit(json_encode($data));
+        
+        break;
     default:
         break;
 }
