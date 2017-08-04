@@ -24,7 +24,7 @@ switch ($action) {
     case 'search': // 搜索
 
         $word = isset_key($_REQUEST, 'word', null);
-        $way_type = isset_key($_REQUEST, 'way_type', null);
+        $ik_type = isset_key($_REQUEST, 'ik_type', null);
 
         $params = array();
         $params['index'] = $es['index'];
@@ -49,7 +49,7 @@ switch ($action) {
                         )
                     )
             );
-            if ($way_type=='ik_smart') { // ik_smart
+            if ($ik_type=='ik_smart') { // ik_smart
                 $params['body']['query']['match'] = array("content1"=> $word);
                 $params['body']['highlight']['fields'] = array("content1"=> (object) array());
             }else{ // ik_max_word

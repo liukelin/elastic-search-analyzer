@@ -184,7 +184,7 @@ div.analyze_div span {
             data:{
                 action:'analyze',
                 word:$('#word').val(),
-                // way_type:$('#way_type').val()
+                // ik_type:$('#ik_type').val()
             },
             url: '/elastic-search-analyzer/controller/api.php',
             dataType: 'json',
@@ -224,7 +224,7 @@ div.analyze_div span {
                 action:'search',
                 word:$('#word').val(),
                 plugins:$('#plugins').val(),
-                way_type:$('#way_type').val()
+                ik_type:$('#ik_type').val()
             },
             url: '/elastic-search-analyzer/controller/api.php',
             dataType: 'json',
