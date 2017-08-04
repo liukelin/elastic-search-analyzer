@@ -59,15 +59,17 @@ switch ($action) {
             foreach ($ret['hits']['hits'] as $key => $val) {
                 if ($word) { // 搜索列表
 
+                    $content = '';
                     if(isset($val['highlight']['content'])){
                         $contents = $val['highlight']['content'];
                     }else{
                         $contents = $val['highlight']['content1'];
                     }
+                    print_r($contents);
                     foreach ($contents as $key => $val) {
                         $content .= $val;
                     }
-                    
+
                     $data['list'][] = array('id'=>$val['_id'],'content'=>$content);
                 }else{ // 全部列表
                     $data['list'][] = array('id'=>$val['_id'],'content'=>$val['_source']['content']);
