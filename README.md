@@ -9,12 +9,20 @@
 │  
 ├─words/                存放词库文件夹
 │  ├─hot/               热词词库文件夹
-│  │  ├─sougou.dic      搜狗词库
-│  │  ├─single_word_low_freq.dic      单字词
+│  │  ├─sougou.dic      搜狗热词库
+│  │  ├─single_word_low_freq.dic      生僻字的单字词库
 │  │  └─ ...            更多词库文件
+│  │  
 │  ├─stop/              屏蔽分词词库文件夹
 │  │  ├─ext_stopword.dic    屏蔽词词库文件
 │  │  └─ ...            更多屏蔽词词库文件
+│  │  
+│  ├─backup/            一些待用的词库（如果你需要分词搜索结果 不出现/不出现，那就把该文件放到stop/或者 hot/ 下）
+│  │  ├─sougou.dic      搜狗热词库
+│  │  ├─single_word_full.dic        完整的单字词库（如果你需要分词搜索结果不出现单字，那就把该文件放到stop/下）
+│  │  ├─single_word.dic             常见单字的单字词库 （如果你需要分词搜索结果不出现单字，那就把该文件放到stop/下）
+│  │  ├─single_word_low_freq.dic    生僻字的单字词库
+│  │  └─ ...            更多词库文件
 │  
 ├─js/                   js
 ├─analyzer.html         demo页面
