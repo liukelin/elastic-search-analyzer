@@ -1,5 +1,7 @@
     
-目录结构
+## 目录结构
+
+~~~
 ├─controller/           请求接口目录
 │  ├─elastic/           elasticsearch-php 操作类库
 │  │
@@ -26,6 +28,7 @@
 │  
 ├─js/                   js
 ├─analyzer.html         demo页面
+~~~
 
     一、es的ik分词插件支持远程热词 和屏蔽词 的更新
 
