@@ -127,81 +127,86 @@ div.analyze_div span {
 <script type="text/javascript">
 
     $(function(){
-
+        _search();
         $('#search').click(function(){
-            
-            // analyze
-            $.ajax({
-                type: 'POST',
-                data:{
-                    action:'analyze',
-                    word:$('#word').val(),
-                    // way_type:$('#way_type').val()
-                },
-                url: '/elastic-search-analyzer/controller/api.php',
-                dataType: 'json',
-                success: function(data){
-                    var html1 = '';
-                    var html2 = '';
-                    if (data) {
-                        if (data.ik_max_word && data.ik_max_word.tokens && data.ik_max_word.tokens.length>0) {
-                            $.each(data.ik_max_word.tokens, function(key,val){
-                                html1 += '<span>'+val.token+'</span>';
-                            }); 
-                        }
-                        if (data.ik_smart && data.ik_smart.tokens && data.ik_smart.tokens.length>0) {
-                            $.each(data.ik_smart.tokens, function(key,val){
-                                html2 += '<span>'+val.token+'</span>';
-                            }); 
-                        }
-                    }else{
-                        alert('error.');
-                    }
-                    if (html1!='' || html2!='') {
-                        $('#div1').show();
-                    }else{
-                        $('#div1').hide();
-                    }
-                    $('#analyze_span1').html(html1);
-                    $('#analyze_span2').html(html2);
-                }
-            });
-
-            
-            // search
-            $.ajax({
-                type: 'POST',
-                data:{
-                    action:'search',
-                    word:$('#word').val(),
-                    plugins:$('#plugins').val(),
-                    way_type:$('#way_type').val()
-                },
-                url: '/elastic-search-analyzer/controller/api.php',
-                dataType: 'json',
-                success: function(data){
-                    var html = '';
-                    if (data) {
-                        if (data.list && data.list.length>0) {
-                            $.each(data.list, function(key,val){
-                                html += '<div class="div2">'+val.content+'</div>';
-                            }); 
-                        }
-                    }else{
-                        alert('error.');
-                    }
-                    if (html=='') {
-                        html='<div class="div2">没有记录.</div>';
-                    }
-                    $('#list').html(html);
-                }
-            });
-
-
-
+            _analyze();
+            _search();
         });
 
+
     });
+
+    // analyze
+    function _analyze(){
+        // analyze
+        $.ajax({
+            type: 'POST',
+            data:{
+                action:'analyze',
+                word:$('#word').val(),
+                // way_type:$('#way_type').val()
+            },
+            url: '/elastic-search-analyzer/controller/api.php',
+            dataType: 'json',
+            success: function(data){
+                var html1 = '';
+                var html2 = '';
+                if (data) {
+                    if (data.ik_max_word && data.ik_max_word.tokens && data.ik_max_word.tokens.length>0) {
+                        $.each(data.ik_max_word.tokens, function(key,val){
+                            html1 += '<span>'+val.token+'</span>';
+                        }); 
+                    }
+                    if (data.ik_smart && data.ik_smart.tokens && data.ik_smart.tokens.length>0) {
+                        $.each(data.ik_smart.tokens, function(key,val){
+                            html2 += '<span>'+val.token+'</span>';
+                        }); 
+                    }
+                }else{
+                    alert('error.');
+                }
+                if (html1!='' || html2!='') {
+                    $('#div1').show();
+                }else{
+                    $('#div1').hide();
+                }
+                $('#analyze_span1').html(html1);
+                $('#analyze_span2').html(html2);
+            }
+        });
+    }
+
+    function _search(){
+        // search
+        $.ajax({
+            type: 'POST',
+            data:{
+                action:'search',
+                word:$('#word').val(),
+                plugins:$('#plugins').val(),
+                way_type:$('#way_type').val()
+            },
+            url: '/elastic-search-analyzer/controller/api.php',
+            dataType: 'json',
+            success: function(data){
+                var html = '';
+                if (data) {
+                    if (data.list && data.list.length>0) {
+                        $.each(data.list, function(key,val){
+                            html += '<div class="div2">'+val.content+'</div>';
+                        }); 
+                    }
+                }else{
+                    alert('error.');
+                }
+                if (html=='') {
+                    html='<div class="div2">没有记录.</div>';
+                }
+                $('#list').html(html);
+            }
+        });
+    }
+
 
 </script>
 
