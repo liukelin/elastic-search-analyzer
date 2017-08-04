@@ -6,8 +6,8 @@ require_once(__DIR__.'/elastic/vendor/autoload.php'); // 引入第三方 elastic
 
 $es = array(
         'host'=>'http://127.0.0.1:9200',
-        'index'=>'test-ik',
-        'type'=>'test-ik-doc'
+        'index'=>'ik-test',
+        'type'=>'ik-test-doc'
     );
 
 // $client = new Elasticsearch\Client('127.0.0.1:9200');
