@@ -65,9 +65,9 @@ switch ($action) {
                     }else{
                         $contents = $val['highlight']['content1'];
                     }
-                    print_r($contents);
-                    foreach ($contents as $key => $val) {
-                        $content .= $val;
+                    // print_r($contents);
+                    foreach ($contents as $key1 => $val1) {
+                        $content .= $val1;
                     }
 
                     $data['list'][] = array('id'=>$val['_id'],'content'=>$content);
