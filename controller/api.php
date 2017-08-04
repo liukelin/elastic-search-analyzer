@@ -24,7 +24,7 @@ switch ($action) {
     case 'search': // 搜索
 
         $word = isset_key($_REQUEST, 'word', null);
-        $word = isset_key($_REQUEST, 'word', null);
+        $way_type = isset_key($_REQUEST, 'way_type', null);
 
         $params = array();
         $params['index'] = $es['index'];
@@ -33,6 +33,7 @@ switch ($action) {
         // 查询
         $params['body'] = array();
         if ($word) {
+            
             $params['body'] = array(
                 "query" => array( 
                         "match" => array( 
@@ -48,6 +49,12 @@ switch ($action) {
                         )
                     )
             );
+            if ($way_type=='ik_smart') { // ik_smart
+                $params['body']['query']['match'] = array("content1"=> $word);
+                $params['body']['highlight']['fields'] = array("content1"=> (object) array());
+            }else{ // ik_max_word
+                
+            }
         }
         
         $ret = $client->search($params);
