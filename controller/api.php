@@ -1,4 +1,7 @@
 <?php
+set_time_limit(5);
+ini_set("display_errors", "On");
+error_reporting(E_ALL | E_STRICT);
 require_once(__DIR__.'/elastic/vendor/autoload.php'); // 引入第三方 elasticsearch 操作库
 
 $es = array(
