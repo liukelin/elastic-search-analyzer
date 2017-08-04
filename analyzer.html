@@ -149,7 +149,10 @@ div.analyze_div span {
                 width: 800,
                 height: 550,
                 buttons: { 
-                    "取消": function() { $(this).dialog("close"); } ,
+                    "取消": function() { 
+                        $(this).dialog("close"); 
+                        $('#text_content').val('');
+                    } ,
                     "添加": function() { 
 
                         $.ajax({
@@ -163,7 +166,8 @@ div.analyze_div span {
                                 dataType: 'json',
                                 success: function(data){
                                     alert(data.msg);
-                                    $(this).dialog("close");
+                                    $('#text_content').val('');
+                                    $( "#add_content_dialog" ).dialog("close");
                                 }
                             });
 
