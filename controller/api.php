@@ -88,7 +88,7 @@ switch ($action) {
     case 'stop': // 获取
 
         break;
-    case 'insert': // 添加测试文章
+    case 'add_test_content': // 添加测试文章
 
         $content = isset_key($_REQUEST, 'content', null);
 
@@ -106,6 +106,8 @@ switch ($action) {
             $response = $client->index($params);
             // print_r($response);
             $data['response'] = $response;
+        }else{
+            $data['msg'] = '内容不能为空';
         }
         exit(json_encode($data));
         

@@ -84,6 +84,9 @@ div.analyze_div span {
 </style>
 
 <script type="text/javascript" src="./js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="./js/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+<link rel="stylesheet" href="./js/jquery-ui-1.12.1.custom/jquery-ui.css">
+
 </head>
 
 <body style="padding:5px 15px">
@@ -105,10 +108,10 @@ div.analyze_div span {
     <input type="button" name="" id="search" value="搜索" class="button1">
     
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <input type="button" name="" id="" value="新增测试文章" style="" onClick="test()" class="button2">
-    <input type="button" name="" id="" value="添加分词" style="" onClick="test()" class="button2">
-    <input type="button" name="" id="" value="添加屏蔽分词" onClick="test()" class="button2">
-    <input type="button" name="" id="" value="添加同义词" onClick="test()" class="button2">
+    <input type="button" name="" id="add_content" value="新增测试文章"  class="button2" onClick="show_add_content()">
+    <input type="button" name="" id="" value="添加分词"  class="button2">
+    <input type="button" name="" id="" value="添加屏蔽分词"  class="button2">
+    <input type="button" name="" id="" value="添加同义词"  class="button2">
 
 </div>
 
@@ -124,6 +127,11 @@ div.analyze_div span {
     
 </div>
 
+<!-- 添加文章 -->
+<div id="add_content_dialog" title="添加测试文章" style="display: none">
+   <textarea class="div2" id="text_content" style="width: 95%;height: 90%"></textarea>
+</div>
+
 <script type="text/javascript">
 
     $(function(){
@@ -133,8 +141,36 @@ div.analyze_div span {
             _search();
         });
 
-
     });
+
+
+    function show_add_content(){
+        $( "#add_content_dialog" ).dialog({ 
+                width: 800,
+                height: 550,
+                buttons: { 
+                    "取消": function() { $(this).dialog("close"); } ,
+                    "添加": function() { 
+
+                        $.ajax({
+                                type: 'POST',
+                                data:{
+                                    action:'add_test_content',
+                                    content:$('#text_content').val(),
+                                    // way_type:$('#way_type').val()
+                                },
+                                url: '/elastic-search-analyzer/controller/api.php',
+                                dataType: 'json',
+                                success: function(data){
+                                    alert(data.msg);
+                                    $(this).dialog("close");
+                                }
+                            });
+
+                     } 
+                }  
+            });
+    }
 
     // analyze
     function _analyze(){
@@ -206,7 +242,7 @@ div.analyze_div span {
             }
         });
     }
-
+ 
 
 </script>
 
