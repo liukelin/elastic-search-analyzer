@@ -77,8 +77,16 @@ div.analyze_div span {
     
 }
 
-.button1 .button2 hover{
-    border:1px solid red;
+.button3{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    margin:5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    /*font-size: 16px;*/
 }
 
 </style>
@@ -105,13 +113,13 @@ div.analyze_div span {
       <option value ="ik_smart" title="ik_smart：会做最粗粒度的拆分；已被分出的词语将不会再次被其它词语占有">ik_smart</option>
     </select>&nbsp;&nbsp;
 
-    <input type="button" name="" id="search" value="搜索" class="button1">
+    <input type="button" name="" id="search" value="搜索" class="button1 button3">
     
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <input type="button" name="" id="add_content" value="新增测试文章"  class="button2" onClick="show_add_content()">
-    <input type="button" name="" id="" value="添加分词"  class="button2">
-    <input type="button" name="" id="" value="添加屏蔽分词"  class="button2">
-    <input type="button" name="" id="" value="添加同义词"  class="button2">
+    &nbsp;&nbsp;
+    <input type="button" name="" id="add_content" value="新增测试文章"  class="button2 button3" onClick="show_add_content()">
+    <input type="button" name="" id="" value="添加分词"  class="button2 button3">
+    <input type="button" name="" id="" value="添加屏蔽分词"  class="button2 button3">
+    <input type="button" name="" id="" value="添加同义词"  class="button2 button3">
 
 </div>
 
@@ -139,6 +147,11 @@ div.analyze_div span {
         $('#search').click(function(){
             _analyze();
             _search();
+        });
+
+        // 输入自动补全
+        $("#word").autocomplete({
+            source: "/elastic-search-analyzer/controller/api.php" // 实际为 /ajax-actions.php?term=c
         });
 
     });
