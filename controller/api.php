@@ -129,7 +129,7 @@ switch ($action) {
             }
             @fclose($file);
 
-            exit(json_encode(array('ret'=>0,'msg'=>'success.','data'=>$works)));
+            exit(json_encode(array('ret'=>0,'data'=>$works)));
 
         }elseif($_POST){ // add 
             $work = trim($work);
@@ -140,7 +140,7 @@ switch ($action) {
                     fclose($file);
                 }
             }
-            exit(json_encode(array('ret'=>0)));
+            exit(json_encode(array('ret'=>0, 'msg'=>'success.')));
         }
 
         break;
@@ -148,7 +148,7 @@ switch ($action) {
 
         $content = isset_key($_REQUEST, 'content', null);
 
-        $data = array('ret'=>0,'msg'=>'success');
+        $data = array('ret'=>0,'msg'=>'success.');
         if ($content) {
             $params = array(
                 'index' => $es['index'],
