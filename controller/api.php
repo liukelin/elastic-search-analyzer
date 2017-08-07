@@ -7,6 +7,7 @@ ini_set("display_errors", "On");
 error_reporting(E_ALL | E_STRICT);
 require_once(__DIR__.'/elastic/vendor/autoload.php'); // 引入第三方 elasticsearch 操作库
 
+$dir = __DIR__.'/../words/';
 $es = array(
         'host'=>'http://127.0.0.1:9200',
         'index'=>'ik-test',
@@ -106,11 +107,41 @@ switch ($action) {
         exit(json_encode($data));
 
         break;
-    case 'suggester': // 输入 词库 纠错 补全
+    case 'suggester': // 输入 词库 纠错补全api
 
         exit(json_encode(array('as','asd','asd','asd')));
         break;
-    case 'stop': // 
+    case 'custom_word': // 自定义分词管理
+
+        $type = isset_key($_REQUEST, 'type', 'hot');
+        $work = isset_key($_REQUEST, 'work', null);
+
+        $hotDir = $dir.'hot/custom_word.dic';
+        $stopDir = $dir.'stop/custom_word.dic';
+        $Dir = $type=='stop'?$stopDir:$hotDir;
+
+        if ($_GET) { // get
+
+            $works = array();
+            $file = @fopen($Dir, "r");
+            while(!feof($file)){
+                $works[]= fgets($file);
+            }
+            fclose($file);
+
+            exit(json_encode(array('ret'=>0,'msg'=>'success.','data'=>$works)));
+
+        }elseif($_POST){ // add 
+            $work = trim($work);
+            if ($work) {
+                $file=fopen($Dir, "a");
+                if($file){
+                    fwrite($file, $work."\r\n");
+                    fclose($file);
+                }
+            }
+            exit(json_encode(array('ret'=>0)));
+        }
 
         break;
     case 'add_test_content': // 添加测试文章

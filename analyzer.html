@@ -34,7 +34,7 @@ div.analyze_div span:hover{
     border:1px solid red;
 }
 div.analyze_div span {
-    background-color: #a9c6c9;
+    background-color: #4CAF50;
     padding:0 5px;
     margin:0 3px;
 }
@@ -117,7 +117,7 @@ div.analyze_div span {
     
     &nbsp;&nbsp;
     <input type="button" name="" id="add_content" value="新增测试文章"  class="button2 button3" onClick="show_add_content()">
-    <input type="button" name="" id="" value="添加分词"  class="button2 button3">
+    <input type="button" name="" id="" value="添加自定义分词"  class="button2 button3">
     <input type="button" name="" id="" value="添加屏蔽分词"  class="button2 button3">
     <input type="button" name="" id="" value="添加同义词"  class="button2 button3">
 
@@ -140,6 +140,12 @@ div.analyze_div span {
    <textarea class="div2" id="text_content" style="width: 95%;height: 90%"></textarea>
 </div>
 
+<!-- 自定义分词 -->
+<div id="add_custom_word" title="添加自定义分词-" style="display: none">
+   <input type="text" id="custom_word" style="width:350px;height:25px">
+   <div class="analyze_div" id="custom_word_div"></div>
+</div>
+
 <script type="text/javascript">
 
     $(function(){
@@ -156,38 +162,38 @@ div.analyze_div span {
 
     });
 
-    // 添加测试文章
-    function show_add_content(){
-        $( "#add_content_dialog" ).dialog({ 
-                width: 800,
-                height: 550,
-                buttons: { 
-                    "取消": function() { 
-                        $(this).dialog("close"); 
-                        $('#text_content').val('');
-                    } ,
-                    "添加": function() { 
-
-                        $.ajax({
-                                type: 'POST',
-                                data:{
-                                    action:'add_test_content',
-                                    content:$('#text_content').val(),
-                                    // way_type:$('#way_type').val()
-                                },
-                                url: '/elastic-search-analyzer/controller/api.php',
-                                dataType: 'json',
-                                success: function(data){
-                                    alert(data.msg);
-                                    $('#text_content').val('');
-                                    $( "#add_content_dialog" ).dialog("close");
-                                }
-                            });
-
-                     } 
-                }  
-            });
+    function _search(){
+        // search
+        $.ajax({
+            type: 'POST',
+            data:{
+                action:'search',
+                word:$('#word').val(),
+                plugins:$('#plugins').val(),
+                ik_type:$('#ik_type').val()
+            },
+            url: '/elastic-search-analyzer/controller/api.php',
+            dataType: 'json',
+            success: function(data){
+                var html = '';
+                if (data) {
+                    if (data.list && data.list.length>0) {
+                        $.each(data.list, function(key,val){
+                            html += '<div class="div2">'+val.content+'</div>';
+                        }); 
+                    }
+                }else{
+                    alert('error.');
+                }
+                if (html=='') {
+                    html='<div class="div2">没有记录.</div>';
+                }
+                $('#list').html(html);
+            }
+        });
     }
+
+    
 
     // 分词接口 analyze
     function _analyze(){
@@ -229,35 +235,91 @@ div.analyze_div span {
         });
     }
 
-    function _search(){
-        // search
+
+    // 添加测试文章
+    function show_add_content(){
+        $( "#add_content_dialog" ).dialog({ 
+                width: 800,
+                height: 550,
+                buttons: { 
+                    "取消": function() { 
+                        $(this).dialog("close"); 
+                        $('#text_content').val('');
+                    } ,
+                    "添加": function() { 
+
+                        $.ajax({
+                                type: 'POST',
+                                data:{
+                                    action:'add_test_content',
+                                    content:$('#text_content').val(),
+                                    // way_type:$('#way_type').val()
+                                },
+                                url: '/elastic-search-analyzer/controller/api.php',
+                                dataType: 'json',
+                                success: function(data){
+                                    alert(data.msg);
+                                    $('#text_content').val('');
+                                    $( "#add_content_dialog" ).dialog("close");
+                                }
+                            });
+
+                     } 
+                }  
+            });
+    }
+
+    // 自定义分词
+    function get_custom_word(type){
         $.ajax({
-            type: 'POST',
-            data:{
-                action:'search',
-                word:$('#word').val(),
-                plugins:$('#plugins').val(),
-                ik_type:$('#ik_type').val()
-            },
-            url: '/elastic-search-analyzer/controller/api.php',
+            type: 'get',
+            url: '/elastic-search-analyzer/controller/api.php?action=custom_word&type='+type,
             dataType: 'json',
             success: function(data){
                 var html = '';
-                if (data) {
-                    if (data.list && data.list.length>0) {
-                        $.each(data.list, function(key,val){
-                            html += '<div class="div2">'+val.content+'</div>';
-                        }); 
-                    }
-                }else{
-                    alert('error.');
+                if (data.data  && data.data.length>0) {
+                    $.each(data.data, function(key,val){
+                        html += '<span>'+val+'</span>';
+                    });
                 }
-                if (html=='') {
-                    html='<div class="div2">没有记录.</div>';
-                }
-                $('#list').html(html);
+                $('#custom_word_div').html(html);
             }
         });
+    }
+    // 添加自定义分词
+    function add_custom_word(type, title=''){
+        get_custom_word();
+
+        $( "#add_custom_word" ).dialog({ 
+                width: 800,
+                height: 550,
+                buttons: { 
+                    "取消": function() { 
+                        $(this).dialog("close"); 
+                        $('#custom_word').val('');
+                    } ,
+                    "添加": function() { 
+
+                        $.ajax({
+                                type: 'POST',
+                                data:{
+                                    action:'custom_word',
+                                    content:$('#custom_word').val(),
+                                    type:type
+                                },
+                                url: '/elastic-search-analyzer/controller/api.php',
+                                dataType: 'json',
+                                success: function(data){
+                                    alert(data.msg);
+                                    $('#custom_word').val('');
+                                    get_custom_word();
+                                }
+                        });
+                        
+                    } 
+                }  
+            });
+        
     }
  
 
