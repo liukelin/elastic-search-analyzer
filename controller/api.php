@@ -124,10 +124,10 @@ switch ($action) {
 
             $works = array();
             $file = @fopen($Dir, "r");
-            while(!feof($file)){
-                $works[]= fgets($file);
+            while(!@feof($file)){
+                $works[]= @fgets($file);
             }
-            fclose($file);
+            @fclose($file);
 
             exit(json_encode(array('ret'=>0,'msg'=>'success.','data'=>$works)));
 
