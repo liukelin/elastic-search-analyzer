@@ -118,17 +118,21 @@ switch ($action) {
 
         $hotDir = $dir.'hot/custom_word.dic';
         $stopDir = $dir.'stop/custom_word.dic';
-        $Dir = $type=='stop'?$stopDir:$hotDir;
+        $Dir = ($type=='stop')?$stopDir:$hotDir;
 
         if ($_GET) { // get
 
             $works = array();
             $file = @fopen($Dir, "r");
-            while(!@feof($file)){
-                $works[]= @fgets($file);
+            $i=0;
+            while(!feof($file)){
+                $works[$i]= fgets($file);
+                $i++;
             }
             @fclose($file);
-
+            
+            $works = array_filter($works);
+            
             exit(json_encode(array('ret'=>0,'data'=>$works)));
 
         }elseif($_POST){ // add 
