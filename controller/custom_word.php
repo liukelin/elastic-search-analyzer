@@ -1,7 +1,4 @@
 <?php
-// set_time_limit(5);
-// ini_set("display_errors", "On");
-// error_reporting(E_ALL | E_STRICT);
 /**
  * 提供远程 字扩展词字典、远程扩展停止词字典 
  *

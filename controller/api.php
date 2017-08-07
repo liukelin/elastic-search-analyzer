@@ -1,4 +1,7 @@
 <?php
+/**
+ * liukelin
+ */
 set_time_limit(5);
 ini_set("display_errors", "On");
 error_reporting(E_ALL | E_STRICT);
@@ -103,7 +106,7 @@ switch ($action) {
         exit(json_encode($data));
 
         break;
-    case 'suggester': // 输入补全
+    case 'suggester': // 输入 词库 纠错 补全
 
         exit(json_encode(array('as','asd','asd','asd')));
         break;
