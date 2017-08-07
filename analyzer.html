@@ -151,7 +151,7 @@ div.analyze_div span {
 
         // 输入自动补全
         $("#word").autocomplete({
-            source: "/elastic-search-analyzer/controller/api.php" // 实际为 /ajax-actions.php?term=c
+            source: "/elastic-search-analyzer/controller/api.php?action=suggester" // 实际为 /ajax-actions.php?term=c
         });
 
     });
@@ -175,7 +175,7 @@ div.analyze_div span {
                                     content:$('#text_content').val(),
                                     // way_type:$('#way_type').val()
                                 },
-                                url: '/elastic-search-analyzer/controller/api.php?action=suggester',
+                                url: '/elastic-search-analyzer/controller/api.php',
                                 dataType: 'json',
                                 success: function(data){
                                     alert(data.msg);
