@@ -142,7 +142,7 @@ div.analyze_div span {
 
 <!-- 自定义分词 -->
 <div id="add_custom_word" title="添加自定义分词-" style="display: none">
-   <input type="text" id="custom_word" style="width:350px;height:25px">
+   词汇：<input type="text" id="custom_word" style="width:350px;height:25px">
    <div class="analyze_div" id="custom_word_div"></div>
 </div>
 
@@ -289,7 +289,7 @@ div.analyze_div span {
     // 添加自定义分词
     function add_custom_word(type, title=''){
         $('#custom_word_div').attr('title',title);
-        get_custom_word();
+        get_custom_word(type);
         $( "#add_custom_word" ).dialog({ 
                 width: 800,
                 height: 550,
@@ -312,7 +312,7 @@ div.analyze_div span {
                                 success: function(data){
                                     alert(data.msg);
                                     $('#custom_word').val('');
-                                    get_custom_word();
+                                    get_custom_word(type);
                                 }
                         });
                         
