@@ -125,8 +125,8 @@ switch ($action) {
             $works = array();
             $file = @fopen($Dir, "r");
             $i=0;
-            while(!feof($file)){
-                $works[$i]= fgets($file);
+            while(!@feof($file)){
+                $works[$i]= @fgets($file);
                 $i++;
             }
             @fclose($file);
