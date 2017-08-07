@@ -55,5 +55,5 @@
 
 demo地址
 
-    [http://demo.liukelin.top/elastic-search-analyzer/analyzer.html] (http://demo.liukelin.top/elastic-search-analyzer/analyzer.html)
+    [http://demo.liukelin.top/elastic-search-analyzer/analyzer.html](http://demo.liukelin.top/elastic-search-analyzer/analyzer.html)
 
