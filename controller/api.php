@@ -132,6 +132,7 @@ switch ($action) {
             exit(json_encode(array('ret'=>0,'data'=>$works)));
 
         }elseif($_POST){ // add 
+            $ret = array();
             $work = trim($work);
             if ($work) {
                 $file=fopen($Dir, "a");
@@ -139,8 +140,11 @@ switch ($action) {
                     fwrite($file, $work."\r\n");
                     fclose($file);
                 }
+                $ret = array('ret'=>0, 'msg'=>'success.');
+            }else{
+                $ret = array('ret'=>-1, 'msg'=>'内容为空.');
             }
-            exit(json_encode(array('ret'=>0, 'msg'=>'success.')));
+            exit(json_encode($ret));
         }
 
         break;

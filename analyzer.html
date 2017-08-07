@@ -288,9 +288,10 @@ div.analyze_div span {
     }
     // 添加自定义分词
     function add_custom_word(type, title=''){
-        $('#custom_word_div').attr('title',title);
+        // $('#custom_word_div').attr('title',title);
         get_custom_word(type);
         $( "#add_custom_word" ).dialog({ 
+                title: title,
                 width: 800,
                 height: 550,
                 buttons: { 
