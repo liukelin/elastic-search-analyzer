@@ -35,8 +35,8 @@ div.analyze_div span:hover{
 }
 div.analyze_div span {
     background-color: #4CAF50;
-    padding:0 5px;
-    margin:0 3px;
+    padding:3px 5px;
+    margin:3px 5px;
 }
 .bg1{
     font-weight:bold;
@@ -271,6 +271,7 @@ div.analyze_div span {
 
     // 自定义分词
     function get_custom_word(type){
+        $('#custom_word_div').html('');
         $.ajax({
             type: 'get',
             url: '/elastic-search-analyzer/controller/api.php?action=custom_word&type='+type,
