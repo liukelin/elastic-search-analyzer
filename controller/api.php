@@ -103,7 +103,11 @@ switch ($action) {
         exit(json_encode($data));
 
         break;
-    case 'stop': // 获取
+    case 'suggester': // 输入补全
+
+        exit(json_encode(array('as','asd','asd','asd')));
+        break;
+    case 'stop': // 
 
         break;
     case 'add_test_content': // 添加测试文章

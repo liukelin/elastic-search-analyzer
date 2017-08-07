@@ -175,7 +175,7 @@ div.analyze_div span {
                                     content:$('#text_content').val(),
                                     // way_type:$('#way_type').val()
                                 },
-                                url: '/elastic-search-analyzer/controller/api.php',
+                                url: '/elastic-search-analyzer/controller/api.php?action=suggester',
                                 dataType: 'json',
                                 success: function(data){
                                     alert(data.msg);
