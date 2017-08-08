@@ -59,9 +59,14 @@ switch ($action) {
                         )
                     )
             );
-            if ($ik_type=='ik_smart') { // ik_smart
+            if ($ik_type=='ik_smart') { // 切换 ik_smart模式字段 
                 $params['body']['query']['match'] = array("content1"=> $word);
-                $params['body']['highlight']['fields'] = array("content1"=> (object) array());
+                $params['body']['highlight']['fields'] = array(
+                                                    "content1"=> array(
+                                                            "fragment_size"=> 150,
+                                                            "number_of_fragments"=>0
+                                                        )
+                                                    );
             }else{ // ik_max_word
                 
             }
@@ -69,7 +74,7 @@ switch ($action) {
         
         $ret = $client->search($params);
 
-        $data = array('total'=>0);
+        $data = array('ret'=>0,'total'=>0);
         if (isset($ret['hits'])) {
             $data['total'] = (int)$ret['hits']['total'];
 
@@ -82,7 +87,7 @@ switch ($action) {
                     }else{
                         $contents = $val['highlight']['content1'];
                     }
-                    // print_r($contents);
+                    // 将所有搜索结果片段 取出
                     foreach ($contents as $key1 => $val1) {
                         $content .= $val1;
                     }
@@ -105,6 +110,7 @@ switch ($action) {
 
         $data = array();
         foreach ($ik_types as $key => $val) {
+            // 在elasticsearch-php 库中没有找到相应的方法，自己curl
             $url = "{$es['host']}/_analyze?pretty&analyzer={$val}";
             $output = curl_($url, json_encode(array('text'=>$word)), 'post');
             $data[$val] = json_decode($output);
@@ -153,7 +159,7 @@ switch ($action) {
                     @fwrite($file, $work."\r\n");
                     @fclose($file);
                 }
-                $ret = array('ret'=>0, 'msg'=>'success.');
+                $ret = array('ret'=>0, 'msg'=>'添加成功，但es-ik生效需要1分钟以上~');
             }else{
                 $ret = array('ret'=>-1, 'msg'=>'内容为空.');
             }
