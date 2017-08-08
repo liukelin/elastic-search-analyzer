@@ -53,8 +53,8 @@ switch ($action) {
                             // "content" => (object) array(), // 这里API需要的正确格式是:{}空字典，而不是[]空数组
                             "content" => array(
                                         "fragment_size"=> 150, //每个字段都可以设置高亮显示的字符片fragment_size段大小（默认为100），
-                                        "number_of_fragments"=>0, // 如果number_of_fragments值设置为0则片段产生，
-                                        // "order"=>0, // 当order设置为score时候可以按照评分进行排序
+                                        "number_of_fragments"=>0, // 如果number_of_fragments值设置为0则片段产生（可以理解为一个片段返回字段所有内容），
+                                        // "order"=>0, // 当order设置为score时候可以按照评分进行 片段 排序
                                 )
                         )
                     )
@@ -129,15 +129,18 @@ switch ($action) {
         if ($_GET) { // get
 
             $works = array();
-            $file = @fopen($Dir, "r");
-            $i=0;
-            while(!@feof($file)){
-                $works[$i]= @fgets($file);
-                $i++;
+            if (is_file($Dir)) {
+
+                $file = @fopen($Dir, "r");
+                $i=0;
+                while(!@feof($file)){
+                    $works[$i]= @fgets($file);
+                    $i++;
+                }
+                @fclose($file);
+                
+                $works = array_filter($works);
             }
-            @fclose($file);
-            
-            $works = array_filter($works);
             
             exit(json_encode(array('ret'=>0,'data'=>$works)));
 
@@ -145,10 +148,10 @@ switch ($action) {
             $ret = array();
             $work = trim($work);
             if ($work) {
-                $file=fopen($Dir, "a");
+                $file=@fopen($Dir, "a");
                 if($file){
-                    fwrite($file, $work."\r\n");
-                    fclose($file);
+                    @fwrite($file, $work."\r\n");
+                    @fclose($file);
                 }
                 $ret = array('ret'=>0, 'msg'=>'success.');
             }else{
