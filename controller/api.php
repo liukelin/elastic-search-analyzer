@@ -45,11 +45,17 @@ switch ($action) {
                              // '_id' => 1, 
                         )
                     ),
+                // 搜索结果返回设置
                 "highlight" => array( 
                         "pre_tags" => array("<span class='bg1'>", "<span class='bg2'>"),
                         "post_tags" => array("</span>", "</span>"),
                         "fields" => array( 
-                            "content" => (object) array(), // 这里API需要的正确格式是:{}空字典，而不是[]空数组
+                            // "content" => (object) array(), // 这里API需要的正确格式是:{}空字典，而不是[]空数组
+                            "content" => array(
+                                        "fragment_size"=> 150, //每个字段都可以设置高亮显示的字符片fragment_size段大小（默认为100），
+                                        "number_of_fragments"=>0, // 如果number_of_fragments值设置为0则片段产生，
+                                        // "order"=>0, // 当order设置为score时候可以按照评分进行排序
+                                )
                         )
                     )
             );
