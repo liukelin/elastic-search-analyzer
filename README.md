@@ -167,6 +167,8 @@
             }
         }'
 
+![image](https://github.com/liukelin/elastic-search-analyzer/raw/master/img/测试分词器.png)
+    自定义分词
 
 ~~~
 
