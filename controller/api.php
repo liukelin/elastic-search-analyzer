@@ -119,10 +119,6 @@ switch ($action) {
         exit(json_encode($data));
 
         break;
-    case 'suggester': // 输入 词库 纠错补全api
-
-        exit(json_encode(array('as','asd','asd','asd')));
-        break;
     case 'custom_word': // 自定义分词管理
 
         $type = isset_key($_REQUEST, 'type', 'hot');
@@ -199,6 +195,11 @@ switch ($action) {
         exit(json_encode($data));
         
         break;
+    case 'suggester': // 输入 词库 纠错补全api
+
+        exit(json_encode(array('suggester','开发中...','asd')));
+        break;
+    
     default:
         break;
 }
