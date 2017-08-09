@@ -95,7 +95,7 @@
             <!-- <entry key="remote_ext_stopwords">http://demo.liukelin.top/elastic-search-analyzer/controller/custom_word.php?action=stop</entry> -->
         </properties>
 
-        custom_word.php 内容:
+        参考内容:
         $s = <<<'EOF'
         刘科麟
         liukelin
@@ -104,6 +104,7 @@
         header('ETag: "5816f349-19"');
         exit($s);
         一行一个词 ik 接收两个返回的头部属性 Last-Modified 和 ETag，只要其中一个有变化，就会触发更新，ik 会每分钟获取一次
+        现在的项目是用去搜狗输入法官网的热词来更新最新词汇
 
     4、index分词器设置
     
@@ -167,10 +168,10 @@
             }
         }'
 
-![image](https://github.com/liukelin/elastic-search-analyzer/raw/master/img/测试分词器.png)
-    自定义分词
-
 ~~~
+
+![image](https://raw.githubusercontent.com/liukelin/elastic-search-analyzer/master/img/%E6%B5%8B%E8%AF%95%E5%88%86%E8%AF%8D%E5%99%A8.png)
+    自定义分词
 
 demo地址
 
