@@ -18,13 +18,11 @@ header("Content-type: text/html; charset=utf-8");
 $action = isset($_GET['action'])?$_GET['action']:null;
 $dir = __DIR__.'/../words/';
 $words = '';
-
+$file = array();
 // $action = 'hot';
 
 switch ($action) {
 
-    $file = array();
-    $words = '';
     case 'hot': // 扩展词
         
         $dir = $dir.'hot/';
