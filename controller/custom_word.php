@@ -2,7 +2,9 @@
 /**
  * 提供远程 字扩展词字典、远程扩展停止词字典 
  *
+ *
  * ik 接收两个返回的头部属性 Last-Modified 和 ETag，只要其中一个有变化，就会触发更新，ik 会每分钟获取一次
+ * 内容为一词一行 "\n" 换行
  * 为了避免对es造成不必要的压力，最好做成更新了词库 再改变头部属性
  *
  * liukelin
@@ -26,7 +28,7 @@ switch ($action) {
         $file = scandir($dir);
         foreach ($file as $key => $v) {
             $words .= @include($dir.$v);
-            $words .= "\n";
+            $words .= "\n"; // 添加一个换行符
         }
         $words = trim($words);
 
@@ -37,8 +39,7 @@ switch ($action) {
         $file = scandir($dir);
         foreach ($file as $key => $v) {
             $words .= @include($dir.$v);
-            $words .= "\n"; // 添加一个换行符
-     
+            $words .= "\n";
         }
         $words = trim($words);
 
@@ -49,9 +50,10 @@ switch ($action) {
     $s = <<<'EOF'
         {$words}
 EOF;
-    // 为了避免对es造成不必要的压力，最好做成更新了词库 再改变头部属性 time()
+    // 为了避免对es造成不必要的压力，最好做成更新了词库 再改变头部属性 
+    $ETag;  
     header("Content-type: text/html; charset=utf-8"); 
     header('Last-Modified: '.gmdate('D, d M Y H:i:s', time()).' GMT', true, 200);
-    header('ETag: "5816f349-20"');
+    header('ETag: "5816f349-21"');
     exit($s);
 }
