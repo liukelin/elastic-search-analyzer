@@ -175,5 +175,5 @@
 
 demo地址
 
-    [demo:http://demo.liukelin.top/elastic-search-analyzer/analyzer.html](http://demo.liukelin.top/elastic-search-analyzer/analyzer.html)
+[demo:http://demo.liukelin.top/elastic-search-analyzer/analyzer.html](http://demo.liukelin.top/elastic-search-analyzer/analyzer.html)
 
