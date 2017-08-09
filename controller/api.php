@@ -197,7 +197,7 @@ switch ($action) {
         break;
     case 'suggester': // 输入 词库 纠错补全api
 
-        exit(json_encode(array('suggester','开发中...','asd')));
+        exit(json_encode(array('suggester','开发中...')));
         break;
     
     default:
