@@ -154,18 +154,18 @@ switch ($action) {
             $ret = array();
             $work = trim($work);
             if ($work) {
-                $file=@fopen($Dir, "a");
+                $file=fopen($Dir, "a");
                 if($file){
-                    @fwrite($file, $work."\r\n");
-                    @fclose($file);
+                    fwrite($file, $work."\r\n");
+                    fclose($file);
                 }
                 $ret = array('ret'=>0, 'msg'=>'添加成功，但es-ik生效需要1分钟以上~');
 
                 
-                $file=@fopen($dir.'word_version.txt', "w");
+                $file=fopen($dir.'word_version.txt', "w");
                 if($file){
-                    @fwrite($file, time());
-                    @fclose($file);
+                    fwrite($file, time());
+                    fclose($file);
                 }
 
             }else{
