@@ -23,30 +23,30 @@ $words = '';
 
 switch ($action) {
 
+    $file = array();
+    $words = '';
     case 'hot': // 扩展词
         
         $dir = $dir.'hot/';
         $file = scandir($dir);
-        foreach ($file as $key => $v) {
-            $words .= @include($dir.$v);
-            $words .= "\n"; // 添加一个换行符
-        }
-        $words = trim($words);
 
         break;  
     case 'stop': // 扩展停止词
 
         $dir = $dir.'stop/';
         $file = scandir($dir);
-        foreach ($file as $key => $v) {
-            $words .= @include($dir.$v);
-            $words .= "\n";
-        }
-        $words = trim($words);
 
         break;
     default:
         break;
+
+    foreach ($file as $key => $v) {
+        if (pathinfo($dir.$v)['extension']=='dic') {
+            $words .= @include($dir.$v);
+            $words .= "\n"; // 添加一个换行符
+        }
+    }
+    $words = trim($words);
 
     $s = <<<'EOF'
         {$words}
