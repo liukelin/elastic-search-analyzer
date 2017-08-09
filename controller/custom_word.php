@@ -18,7 +18,7 @@ $action = isset($_GET['action'])?$_GET['action']:null;
 $dir = __DIR__.'/../words/';
 $words = '';
 $files = array();
-$action = 'hot';
+// $action = 'hot';
 
 switch ($action) {
 
