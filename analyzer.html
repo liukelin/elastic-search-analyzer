@@ -60,7 +60,7 @@ div.analyze_div span {
 }
 .div2{
     margin:5px 5px;
-    padding:5px 5px;
+    padding:5px 10px;
     border:1px solid #C0C0C0;
 }
 
@@ -87,6 +87,16 @@ div.analyze_div span {
     text-decoration: none;
     display: inline-block;
     /*font-size: 16px;*/
+}
+.close_button{
+    position:absolute;
+    /*width:15px;*/
+    /*height:15px;*/
+    /*border:1px solid red;*/
+    float:right;
+    z-index:100;
+    right:5px;/*   定位到右上   */
+    top:0px;
 }
 
 </style>
@@ -131,8 +141,8 @@ div.analyze_div span {
     <div class="analyze_div" id="analyze_span2"><span>asdas</span><span>asdas</span></div>
 </div>
 <!-- Table goes in the document BODY -->
-<div class="" id="list">
-    
+<div class="" id="list" style="position:relative">
+    <!-- <div class="div2">《魔兽世界》<input type="button" class="close_button" value="✘"></div> -->
 </div>
 
 <!-- 添加文章 -->
@@ -179,7 +189,7 @@ div.analyze_div span {
                 if (data) {
                     if (data.list && data.list.length>0) {
                         $.each(data.list, function(key,val){
-                            html += '<div class="div2">'+val.content+'</div>';
+                            html += '<div class="div2" id="cont_'+val.id+'">'+val.content+'<input type="button" class="close_button" value="✘" onClick="del_content('+val.id+')"></div>';
                         }); 
                     }
                 }else{
@@ -287,6 +297,12 @@ div.analyze_div span {
             }
         });
     }
+
+    // 删除文章
+    function del_content(id){
+        alert(id);
+    }
+
     // 添加自定义分词
     function add_custom_word(type, title=''){
         // $('#custom_word_div').attr('title',title);

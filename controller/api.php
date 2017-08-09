@@ -242,62 +242,87 @@ function curl_($url, $data, $action='get'){
 /**
 _analyze: 
 {
-"tokens": [
-{
-"token": "马",
-"start_offset": 0,
-"end_offset": 1,
-"type": "CN_WORD",
-"position": 0
-}
-,
-{
-"token": "克莱",
-"start_offset": 1,
-"end_offset": 3,
-"type": "CN_WORD",
-"position": 1
-}
-,
-{
-"token": "莱",
-"start_offset": 3,
-"end_offset": 4,
-"type": "CN_WORD",
-"position": 2
-}
-]
+    "tokens": [
+        {
+            "token": "马",
+            "start_offset": 0,
+            "end_offset": 1,
+            "type": "CN_WORD",
+            "position": 0
+        },
+        {
+            "token": "克莱",
+            "start_offset": 1,
+            "end_offset": 3,
+            "type": "CN_WORD",
+            "position": 1
+        },
+        {
+            "token": "莱",
+            "start_offset": 3,
+            "end_offset": 4,
+            "type": "CN_WORD",
+            "position": 2
+        }
+    ]
 }
 
 search
 {
-"took": 7,
-"timed_out": false,
-"_shards": {
-"total": 5,
-"successful": 5,
-"failed": 0
-},
-"hits": {
-"total": 1,
-"max_score": 0.28488502,
-"hits": [
+    "took": 7,
+    "timed_out": false,
+    "_shards": {
+        "total": 5,
+        "successful": 5,
+        "failed": 0
+    },
+    "hits": {
+        "total": 1,
+        "max_score": 0.28488502,
+        "hits": [
+            {
+                "_index": "test-ik",
+                "_type": "test-ik-smart",
+                "_id": "1",
+                "_score": 0.28488502,
+                "_source": {
+                    "content": "应用程序层是一个附加层"
+                },
+                "highlight": {
+                    "content": [
+                        "<tag1>应用</tag1>程序层是一个附加层"
+                    ]
+                }
+            }
+        ]
+    }
+}
+
+_all
 {
-"_index": "test-ik",
-"_type": "test-ik-smart",
-"_id": "1",
-"_score": 0.28488502,
-"_source": {
-"content": "应用程序层是一个附加层"
-},
-"highlight": {
-"content": [
-"<tag1>应用</tag1>程序层是一个附加层"
-]
+    "took": 3,
+    "timed_out": false,
+    "_shards": {
+        "total": 5,
+        "successful": 5,
+        "failed": 0
+    },
+    "hits": {
+        "total": 5,
+        "max_score": 1,
+        "hits": [
+            {
+                "_index": "ik-test",
+                "_type": "ik-test-doc",
+                "_id": "1502070934",
+                "_score": 1,
+                "_source": {
+                    "content": "《魔兽世界》（World of Warcraft）是由著名游戏公司暴雪娱乐所制作的第一款网络游戏"
+                }
+            }
+        ]
+    }
 }
-}
-]
-}
-}
+
 
  */
