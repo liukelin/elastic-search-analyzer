@@ -170,10 +170,11 @@
 
 ~~~
 
-![image](https://raw.githubusercontent.com/liukelin/elastic-search-analyzer/master/img/%E6%B5%8B%E8%AF%95%E5%88%86%E8%AF%8D%E5%99%A8.png)
-    自定义分词
+自定义分词:
+![image](https://raw.githubusercontent.com/liukelin/elastic-search-analyzer/master/img/自定义分词.png)
+![image](https://raw.githubusercontent.com/liukelin/elastic-search-analyzer/master/img/分词搜索.png)
 
-demo地址
+demo地址:
 
-[demo:http://demo.liukelin.top/elastic-search-analyzer/analyzer.html](http://demo.liukelin.top/elastic-search-analyzer/analyzer.html)
+[http://demo.liukelin.top/elastic-search-analyzer/analyzer.html](http://demo.liukelin.top/elastic-search-analyzer/analyzer.html)
 
