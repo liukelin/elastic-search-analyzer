@@ -73,7 +73,9 @@ foreach ($files as $key => $v) {
 $words = trim($words);
 
 // 为了避免对es造成不必要的压力，最好做成更新了词库 再改变头部属性 
-$ETag = '"' . time() . '"';
+// $ETag = '"' . time() . '"';
+$word_version = trim(@include($dir.'word_version'));
+$ETag = ($word_version!='')? '"' . $word_version . '"':'5816f348-23';
 header('Last-Modified: '.gmdate('D, d M Y H:i:s', time()).' GMT', true, 200);
 // header('Last-Modified: '.gmdate('D, d M Y H:i:s', time() ).' GMT');
 // header('ETag: "5816f348-23"');
