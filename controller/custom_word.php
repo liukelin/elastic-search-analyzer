@@ -1,4 +1,5 @@
 <?php
+header("Content-type: text/html; charset=utf-8"); 
 /**
  * 提供远程 字扩展词字典、远程扩展停止词字典 
  *
@@ -51,9 +52,8 @@ switch ($action) {
         {$words}
 EOF;
     // 为了避免对es造成不必要的压力，最好做成更新了词库 再改变头部属性 
-    $ETag;  
-    header("Content-type: text/html; charset=utf-8"); 
+    $ETag; 
     header('Last-Modified: '.gmdate('D, d M Y H:i:s', time()).' GMT', true, 200);
-    header('ETag: "5816f349-22"');
+    header('ETag: "5816f348-22"');
     exit($s);
 }
