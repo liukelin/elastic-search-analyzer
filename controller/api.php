@@ -187,13 +187,35 @@ switch ($action) {
                     )
             );
             $response = $client->index($params);
-            // print_r($response);
             $data['response'] = $response;
         }else{
             $data['msg'] = '内容不能为空';
         }
         exit(json_encode($data));
         
+        break;
+    case 'del_test_content': // 删除测试文章
+
+        $id = isset_key($_REQUEST, 'id', null);
+
+        $ret = array('ret'=>-1,'msg'=>'删除错误'); 
+        if ($id) {
+            $params = array(
+                    'index' => $es['index'],
+                    'type' => $es['type'],
+                    'body' => array(
+                        "query" => array( 
+                                "match" => array( 
+                                     '_id' => $id, 
+                                )
+                            )
+                        )
+                );
+            $client->deleteByQuery($params);
+            $ret = array('ret'=>0,'msg'=>'删除成功'); 
+        }
+
+        exit(json_encode($ret));
         break;
     case 'suggester': // 输入 词库 纠错补全api
 

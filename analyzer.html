@@ -61,7 +61,7 @@ div.analyze_div span {
 .div2{
     position:relative;
     margin:5px 5px;
-    padding:5px 10px;
+    padding:5px 12px;
     border:1px solid #C0C0C0;
 }
 
@@ -143,7 +143,7 @@ div.analyze_div span {
 </div>
 <!-- Table goes in the document BODY -->
 <div class="" id="list">
-    <div class="div2">《魔兽世界》<input type="button" class="close_button" value="✘"></div>
+    <!-- <div class="div2">《魔兽世界》（World of Warcraft）是由著名游戏公司暴雪娱乐所制作的第一款网络游戏，属于大型多人在线角色扮演游戏。游戏以该公司出品的即时战略游戏《魔兽争霸》的剧情为历史背景，依托魔兽争霸的历史事件和英雄人物，魔兽世界有着完整的历史背景时间线。 玩家在魔兽世界中冒险、完成任务、新的历险、探索未知的世界、征服怪物等。 2003年《魔兽争霸III：冰封王座》发售之后，暴雪娱乐正式宣布了《魔兽世界》的开发计划（之前已经秘密开发了数年之久）。魔兽世界于2004年在北美公开测试，同年11月23日开始在美国、新西兰、加拿大、澳洲与墨西哥发行。截至2008年底，全球的魔兽世界付费用户已超过1150万人，并成功打进吉尼斯世界纪录大全。2008年4月，魔兽世界在MMORPG市场占有率达62%。 截止2014年01月，全世界创建的账号总数已超过一亿（含试玩版账号），人物角色达到5亿。共有244个国家和地区的人在玩《魔兽世界》，包括南极、巴哈马，圣诞岛，以及托克劳群岛之类。 在中国大陆的原代理商为第九城市，2005年3月21日下午开始限量测试，同年6月6日正式商业化运营。2009年6月7日起中国地区运营商变更为网易。 2016年9月1日，魔兽世界7.0版本全球同步上线。<input type="button" class="close_button" value="✘"></div> -->
 </div>
 
 <!-- 添加文章 -->
@@ -280,6 +280,23 @@ div.analyze_div span {
             });
     }
 
+    // 删除文章
+    function del_content(id){
+        // alert(id);
+        $.ajax({
+            type: 'get',
+            url: '/elastic-search-analyzer/controller/api.php?action=del_test_content&id='+id,
+            dataType: 'json',
+            success: function(data){
+                if (data.ret==0) {
+                    $('#cont_'+id).hide();
+                }else{
+                    alert(data.msg)
+                }
+            }
+        });
+    }
+
     // 自定义分词
     function get_custom_word(type){
         $('#custom_word_div').html('');
@@ -297,11 +314,6 @@ div.analyze_div span {
                 $('#custom_word_div').html(html);
             }
         });
-    }
-
-    // 删除文章
-    function del_content(id){
-        alert(id);
     }
 
     // 添加自定义分词
