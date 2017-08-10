@@ -83,8 +83,8 @@ $words = trim($words);
 $word_version = trim(@file_get_contents($dir.'word_version.txt'));
 $ETag = ($word_version!='')? '"' . $word_version . '"':'"5816f348-23"';
 
-header('Last-Modified: '.gmdate('D, d M Y H:i:s', time()).' GMT', true, 200);
-// header('Last-Modified: '.gmdate('D, d M Y H:i:s', time() ).' GMT');
+// header('Last-Modified: '.gmdate('D, d M Y H:i:s', time()).' GMT', true, 200);
+header('Last-Modified: '.gmdate('D, d M Y H:i:s', time() ).' GMT');
 // header('ETag: "5816f348-23"');
 header("ETag: $ETag");
 exit($words);
