@@ -65,9 +65,10 @@
 ~~~
     1、环境安装
 
-        es 和 ik插件的安装启动过程比较简单跳过。
+        es(5.3.0) 和 ik插件(5.3.0)的安装启动过程比较简单跳过。
         es安装启动主要注意的问题是:文件夹权限、ulimit数量、JVM配置优化
         ik插件可直接下载包放到: $elasticsearch/plugins/ik/ 下。 也可以直接插件命令行安装: $plugin —install analysis-ik 
+        需要注意的是ik的版本需要和elasticsearch 完全对应
 
     2、测试分词器
 
