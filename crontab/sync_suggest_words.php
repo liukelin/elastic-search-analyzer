@@ -28,7 +28,7 @@ foreach ($files as $key => $v) {
                 $work = trim($work);
                 if ($work) {
 
-                    put_suggest($work, time(), 0, 1);
+                    put_suggest($es , $work, time(), 0, 1);
 
                 }
             }
@@ -38,7 +38,7 @@ foreach ($files as $key => $v) {
     }
 }
 
-function put_suggest($work, $id, $word_type=0, $weight=1){
+function put_suggest($es, $work, $id, $word_type=0, $weight=1){
     $d = array(
                 "title" => $work,
                 "word_type" => $word_type,
@@ -50,8 +50,8 @@ function put_suggest($work, $id, $word_type=0, $weight=1){
                 )
             );
     $id = time();
-    $url = "{$es['host']}/{$es['index']}/{$es['type']}/{$val}/{$id}/";
-    $output; = curl_($url, json_encode($d), 'post');
+    $url = "{$es['host']}/{$es['index']}/{$es['type']}/{$id}/";
+    $output = curl_($url, json_encode($d), 'post');
     return $output;
 }
 
