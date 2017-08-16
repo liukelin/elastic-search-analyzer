@@ -12,7 +12,7 @@ $es = array(
     );
 
 if (!$argv) {
-    exit('error not cli.');
+    exit('error please cli.');
 }
 
 $action = isset($argv[0])?trim($argv[0]):'hot_word';
@@ -21,8 +21,8 @@ $words = array();
 switch ($action) {
     case 'hot_word': // 加入热词
 
-        // 允许文件
-        // 屏蔽文件
+        $allow = array('mydict.dic','sougou.dic','test.dic','custom_word.dic'); // 允许文件
+        $ban = array('single_word_low_freq.dic'); // 屏蔽文件
 
         $files = array();
         $dir = $dir.'hot/';
@@ -30,6 +30,13 @@ switch ($action) {
 
         // 行读取
         foreach ($files as $key => $v) {
+            if (count($allow)>0 && !in_array($v, $allow)) {
+                continue;
+            }
+            if (in_array($v, $ban)) {
+                continue;
+            }
+
             $f = $dir.$v;
             if (pathinfo($f)['extension']=='dic') {
                 if (is_file($f)) {
