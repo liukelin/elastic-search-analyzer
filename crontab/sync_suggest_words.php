@@ -1,6 +1,7 @@
 <?php
 /**
  * 将热词库 同步到 suggest es index
+ * 将用户输入 同步到 suggest es index
  */
 
 $dir = __DIR__.'/../words/';
@@ -10,32 +11,48 @@ $es = array(
         'type'=>'suggest-test-doc'
     );
 
+if (!$argv) {
+    exit('error not cli.');
+}
+
+$action = isset($argv[0])?trim($argv[0]):'hot_word';
 $words = array();
-$files = array();
-        
-$dir = $dir.'hot/';
-$files = scandir($dir);
 
-// 行读取
-foreach ($files as $key => $v) {
-    $f = $dir.$v;
-    if (pathinfo($f)['extension']=='dic') {
-        if (is_file($f)) {
+switch ($action) {
+    case 'hot_word': // 加入热词
 
-            $file = @fopen($f, "r");
-            while(!@feof($file)){
-                $word = @fgets($file);
-                $word = trim($word);
-                if ($word) {
+        // 允许文件
+        // 屏蔽文件
 
-                    $words[] = $word;
-                
+        $files = array();
+        $dir = $dir.'hot/';
+        $files = scandir($dir);
+
+        // 行读取
+        foreach ($files as $key => $v) {
+            $f = $dir.$v;
+            if (pathinfo($f)['extension']=='dic') {
+                if (is_file($f)) {
+
+                    $file = @fopen($f, "r");
+                    while(!@feof($file)){
+                        $word = @fgets($file);
+                        $word = trim($word);
+                        if ($word) {
+                            $words[] = $word;
+                        }
+                    }
+                    @fclose($file);
                 }
+
             }
-            @fclose($file);
         }
 
-    }
+        break;
+    case 'collect': // 用户收集词
+
+    default:
+        break;
 }
 
 foreach ($words as $k => $word) {
@@ -72,6 +89,7 @@ function curl_($url, $data, $action='get'){
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 180);
     if($action=='post'){
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
