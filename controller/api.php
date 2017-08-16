@@ -117,7 +117,7 @@ switch ($action) {
             // 在elasticsearch-php 库中没有找到相应的方法，自己curl
             $url = "{$es['host']}/_analyze?pretty&analyzer={$val}";
             $output = curl_($url, json_encode(array('text'=>$word)), 'post');
-            $data[$val] = json_decode($output);
+            $data[$val] = json_decode($output, true);
         }
 
         exit(json_encode($data));
@@ -243,7 +243,7 @@ switch ($action) {
             );
             $url = "{$es['host']}/{$es['suggest']['index']}/{$es['suggest']['type']}/_search/";
             $output = curl_($url, json_encode($params), 'post');
-            $data = json_decode($output);
+            $data = json_decode($output, true);
             if (isset($data['suggest']) && isset($data['suggest'][$es['suggest']['type']])) {
                 $list = $data['suggest'][$es['suggest']['type']];
                 foreach ($list as $k => $val) {
