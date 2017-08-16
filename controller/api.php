@@ -258,6 +258,7 @@ switch ($action) {
             }
         }
 
+        $suggester[] = '开发调试中...';
         exit(json_encode($suggester));
         break;
     
@@ -297,6 +298,14 @@ function curl_($url, $data, $action='get'){
     $output = curl_exec($ch);
     curl_close($ch);
     return $output;
+}
+
+/**
+ * [elastic 操作方法]
+ * @return [type] [description]
+ */
+function elastic_query($es, $params){
+
 }
 
 
