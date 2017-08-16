@@ -2,6 +2,8 @@
 /**
  * 将热词库 同步到 suggest es index
  * 将用户输入 同步到 suggest es index
+ *
+ * crontab: 0 2 * * *  crontab/sync_suggest_words.php > /var/log/crontab/log-$(date +\%Y-\%m-\%d).log 2>&1
  */
 
 $dir = __DIR__.'/../words/';
