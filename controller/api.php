@@ -233,9 +233,9 @@ switch ($action) {
                     "suggest-test-doc"=> array(
                         "text"=> $term, // prefix
                         "completion"=> array(
-                            "field": "suggest",
+                            "field"=> "suggest",
                             "fuzzy"=> array(
-                                "fuzziness": 2
+                                "fuzziness"=> 2
                             )
                         )
                     )
