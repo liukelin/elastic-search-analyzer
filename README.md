@@ -175,6 +175,18 @@
 ![image](https://raw.githubusercontent.com/liukelin/elastic-search-analyzer/master/img/自定义分词.png)
 ![image](https://raw.githubusercontent.com/liukelin/elastic-search-analyzer/master/img/分词搜索.png)
 
+
+
+
+    7、输入搜索建议 Suggesters
+
+    Suggesters API。 Suggesters基本的运作原理是将输入的文本分解为token，然后在索引的字典里查找相似的term并返回。 根据使用场景的不同，Elasticsearch里设计了4种类别的Suggester，分别是:
+    Term Suggester
+    Phrase Suggester
+    Completion Suggester
+    Context Suggester
+
+
 demo地址:
 
 [http://demo.liukelin.top/elastic-search-analyzer/analyzer.html](http://demo.liukelin.top/elastic-search-analyzer/analyzer.html)
