@@ -17,7 +17,7 @@ if (!$argv) {
     exit('error please cli.');
 }
 
-$action = isset($argv[0])?trim($argv[0]):'hot_word';
+$action = isset($argv[1])?trim($argv[1]):'hot_word';
 $words = array();
 
 switch ($action) {
