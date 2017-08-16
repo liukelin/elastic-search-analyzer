@@ -10,7 +10,7 @@ $es = array(
         'type'=>'suggest-test-doc'
     );
 
-$words = '';
+$words = array();
 $files = array();
         
 $dir = $dir.'hot/';
@@ -24,12 +24,12 @@ foreach ($files as $key => $v) {
 
             $file = @fopen($f, "r");
             while(!@feof($file)){
-                $work = @fgets($file);
-                $work = trim($work);
-                if ($work) {
+                $word = @fgets($file);
+                $word = trim($word);
+                if ($word) {
 
-                    put_suggest($es , $work, time(), 0, 1);
-
+                    $words[] = $word;
+                
                 }
             }
             @fclose($file);
@@ -38,13 +38,17 @@ foreach ($files as $key => $v) {
     }
 }
 
-function put_suggest($es, $work, $id, $word_type=0, $weight=1){
+foreach ($words as $k => $word) {
+    put_suggest($es , $word, md5($word), 0, 1);
+}
+
+function put_suggest($es, $word, $id, $word_type=0, $weight=1){
     $d = array(
-                "title" => $work,
+                "title" => $word,
                 "word_type" => $word_type,
                 "suggest" => array(
                     array(   
-                        "input" => $work,
+                        "input" => $word,
                         "weight" => $weight
                     )
                 )
@@ -80,12 +84,12 @@ function curl_($url, $data, $action='get'){
 }
 /**
 
-PUT /suggest-test
+XPUT /suggest-test
 {
     "mappings": {
         "suggest-test-doc" : {
             "properties" : {
-                "suggest" : {           // suggest
+                "suggest" : {           // 字段别名
                     "type" : "completion"
                 },
                 "title" : {     // 记录名称，因为设置type为completion的字段，在数据上不显示，为了维护方便，设置个字段显示
@@ -99,7 +103,7 @@ PUT /suggest-test
     }
 }
 
-PUT /suggest-test/suggest-test-doc/1
+XPOST /suggest-test/suggest-test-doc/1
 {
   "title": "阿坝师范高等专科学校",
   "suggest": [

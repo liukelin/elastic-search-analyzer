@@ -11,7 +11,11 @@ $dir = __DIR__.'/../words/';
 $es = array(
         'host'=>'http://127.0.0.1:9200',
         'index'=>'ik-test',
-        'type'=>'ik-test-doc'
+        'type'=>'ik-test-doc',
+        'suggest'=>array(
+                'index'=>'suggest-test',
+                'type'=>'suggest-test-doc'
+            )
     );
 
 // $client = new Elasticsearch\Client('127.0.0.1:9200');
@@ -219,7 +223,42 @@ switch ($action) {
         break;
     case 'suggester': // 输入 词库 纠错补全api
 
-        exit(json_encode(array('suggester','开发中...')));
+        $term = isset_key($_REQUEST, 'term', null);
+
+        $suggester = array();
+        if ($term) {
+        
+            $params = array(
+                "suggest"=> array(
+                    "suggest-test-doc"=> array(
+                        "text"=> $term, // prefix
+                        "completion"=> array(
+                            "field": "suggest",
+                            "fuzzy"=> array(
+                                "fuzziness": 2
+                            )
+                        )
+                    )
+                )
+            );
+            $url = "{$es['host']}/{$es['suggest']['index']}/{$es['suggest']['type']}/_search/";
+            $output = curl_($url, json_encode($params), 'post');
+            $data = json_decode($output);
+            if (isset($data['suggest']) && isset($data['suggest'][$es['suggest']['type']])) {
+                $list = $data['suggest'][$es['suggest']['type']];
+                foreach ($list as $k => $val) {
+                    foreach ($val['options'] as $k1 => $val1) {
+                        if (isset($val1['_source']) && isset($val1['_source']['suggest'])) {
+                            foreach ($val1['_source']['suggest'] as $k2 => $val2) {
+                                $suggester[] = $val2['input']; // $val2['weight']
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        exit(json_encode($suggester));
         break;
     
     default:
