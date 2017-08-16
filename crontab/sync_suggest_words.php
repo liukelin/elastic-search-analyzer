@@ -79,7 +79,6 @@ function put_suggest($es, $word, $id, $word_type=0, $weight=1){
                     )
                 )
             );
-    $id = time();
     $url = "{$es['host']}/{$es['index']}/{$es['type']}/{$id}/";
     $output = curl_($url, json_encode($d), 'post');
     return $output;
