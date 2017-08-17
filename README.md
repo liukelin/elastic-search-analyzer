@@ -188,8 +188,7 @@
 
     7、输入搜索建议 Suggesters API
 
-    官方文档：
-[https://www.elastic.co/guide/en/elasticsearch/reference/current/search-suggesters.html](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-suggesters.html)
+    
 
     Suggesters基本的运作原理是将输入的文本分解为token，然后在索引的字典里查找相似的term并返回。 
     根据使用场景的不同，Elasticsearch里设计了4种类别的Suggester，分别是:
@@ -200,7 +199,9 @@
     Context Suggester
 
 
-demo地址:
+Suggesters API官方文档：
+[https://www.elastic.co/guide/en/elasticsearch/reference/current/search-suggesters.html](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-suggesters.html)
 
+demo地址:
 [http://demo.liukelin.top/elastic-search-analyzer/analyzer.html](http://demo.liukelin.top/elastic-search-analyzer/analyzer.html)
 
