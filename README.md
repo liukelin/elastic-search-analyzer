@@ -2,12 +2,16 @@
 ## 目录结构
 
 ~~~
+
 ├─controller/           请求接口目录
 │  ├─elastic/           elasticsearch-php 操作类库
 │  │
 │  ├─api.php            请求接口
 │  ├─custom_word.php    提供给es ik 远程更新的分词库url
 │  └─setup_word.php     配置词库操作接口
+│  
+├─crontab/                          运行脚本
+│  └─sync_suggest_words.php         将热词库 同步到 suggest es index
 │  
 ├─words/                            存放词库文件夹
 │  ├─hot/                           热词词库文件夹
@@ -27,10 +31,13 @@
 │  │  └─ ...                        更多词库文件
 │  
 ├─js/                   js
-├─analyzer.html         demo页面
+├─common.php            公共函数
+├─config.php            配置文件
+└─analyzer.html         demo页面
+
 ~~~
 
-说明
+## 说明
 ~~~
     一、es的ik分词插件支持远程热词和屏蔽词
 
@@ -42,6 +49,7 @@
     3、es对远程词库支持热更，不需要重启服务，1分钟刷新一次
     4、可自动更新，可根据需要找到合适的源，自动维护最新热词到自定义词库（这里是用了搜狗词库sougou.dic
     ）
+    5、远程词库也用于 suggester
 
     四、同一个index，同一字段只能设置一种分词器类型。需要切换分词器，只能冗余字段了。
 
@@ -49,7 +57,7 @@
       es自带了一个suggester，可以使用。
 
     六、同义词的映射的维护
-    1、计划使用redis zset结构保存对应关系
+    1、计划使用redis zset结构保存对应关系，如果suggester的几种机制能满足就更好了
     2、首先使用分词操作，将语句分词，再对每个分词查找他们的对应关系
     比如{"text":"burn罗玉凤”} 拆词应该是 burn 罗玉凤, 
     罗玉凤:使用自定义分词维护，  凰：是burn的映射同义词， 为了避免同义词追加后与原查询语句干扰(避免分出“凤凰”)，用“-” 分割
@@ -61,7 +69,7 @@
 
 ~~~
 
-安装过程
+## 安装和使用
 ~~~
     1、环境安装
 
@@ -178,9 +186,11 @@
 
 
 
-    7、输入搜索建议 Suggesters
+    7、输入搜索建议 Suggesters API
 
-    Suggesters API。 Suggesters基本的运作原理是将输入的文本分解为token，然后在索引的字典里查找相似的term并返回。 根据使用场景的不同，Elasticsearch里设计了4种类别的Suggester，分别是:
+    Suggesters基本的运作原理是将输入的文本分解为token，然后在索引的字典里查找相似的term并返回。 
+    根据使用场景的不同，Elasticsearch里设计了4种类别的Suggester，分别是:
+
     Term Suggester
     Phrase Suggester
     Completion Suggester
