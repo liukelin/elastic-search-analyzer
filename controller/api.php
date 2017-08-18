@@ -231,12 +231,12 @@ switch ($action) {
             $params = array(
                 "suggest"=> array(
                     "suggest-test-doc"=> array(
-                        "prefix"=> $term, // prefix
+                        "text"=> $term, // prefix
                         "completion"=> array(
                             "field"=> "suggest",
-                            "fuzzy"=> array(
-                                "fuzziness"=> 2
-                            )
+                            // "fuzzy"=> array(
+                            //     "fuzziness"=> 2
+                            // )
                         )
                     )
                 )
