@@ -99,7 +99,13 @@ div.analyze_div span {
     right:0px;/*   定位到右上   */
     top:0px;
 }
-
+.footer{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    min-height: 50px;
+}
 </style>
 
 <script type="text/javascript" src="./js/jquery-1.10.2.min.js"></script>
@@ -157,6 +163,13 @@ div.analyze_div span {
    <div class="analyze_div" id="custom_word_div"></div>
 </div>
 
+
+<footer class="footer">
+<div style="width:100%;text-align: center;margin: 20px auto">
+<a href="https://github.com/liukelin/elastic-search-analyzer" target="_blank">GitHub/liukelin</a>
+</div>
+</footer>
+
 <script type="text/javascript">
 
     $(function(){
@@ -169,6 +182,9 @@ div.analyze_div span {
         // 输入自动补全
         $("#word").autocomplete({
             source: "/elastic-search-analyzer/controller/api.php?action=suggester" // 实际为 /ajax-actions.php?term=c
+        }).result(function(event, item) {
+            _analyze();
+            _search();
         });
 
     });
