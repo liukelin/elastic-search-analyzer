@@ -181,10 +181,12 @@ div.analyze_div span {
 
         // 输入自动补全
         $("#word").autocomplete({
-            source: "/elastic-search-analyzer/controller/api.php?action=suggester" // 实际为 /ajax-actions.php?term=c
-        }).result(function(event, item) {
-            _analyze();
-            _search();
+            source: "/elastic-search-analyzer/controller/api.php?action=suggester", // 实际为 /ajax-actions.php?term=c
+            select: function(e, ui) {
+                // alert(ui.item.value) 
+                _analyze();
+                _search();
+            }
         });
 
     });
