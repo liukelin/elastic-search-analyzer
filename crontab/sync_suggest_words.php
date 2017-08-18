@@ -71,6 +71,7 @@ foreach ($words as $k => $word) {
 function put_suggest($es, $word, $id, $word_type=0, $weight=1){
     $d = array(
                 "title" => $word,
+                // "title_text"=> $word,
                 "word_type" => $word_type,
                 "suggest" => array(
                     array(   
@@ -120,6 +121,12 @@ XPUT /suggest-test
                 },
                 "title" : {     // 记录名称，因为设置type为completion的字段，在数据上不显示，为了维护方便，设置个字段显示
                     "type": "keyword"
+                },
+                "title_text" : {     // 冗余多一个字段值作为测试使用
+                    "type": "text"
+                },
+                "title_string" : {     // 冗余多一个字段值作为测试使用
+                    "type": "string"
                 },
                 "word_type" : {    // 词类型 0词库词 1用户搜索搜集词
                     "type": "string"
