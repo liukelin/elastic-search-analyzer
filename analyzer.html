@@ -191,13 +191,14 @@ div.analyze_div span {
 
     });
 
-    function _search(){
+    function _search(word=''){
+        var word = word?word:$('#word').val();
         // search
         $.ajax({
             type: 'POST',
             data:{
                 action:'search',
-                word:$('#word').val(),
+                word:word,
                 plugins:$('#plugins').val(),
                 ik_type:$('#ik_type').val()
             },
@@ -225,13 +226,14 @@ div.analyze_div span {
     
 
     // 分词接口 analyze
-    function _analyze(){
+    function _analyze(word=''){
+        var word = word?word:$('#word').val();
         // analyze
         $.ajax({
             type: 'POST',
             data:{
                 action:'analyze',
-                word:$('#word').val(),
+                word:word,
                 // ik_type:$('#ik_type').val()
             },
             url: '/elastic-search-analyzer/controller/api.php',
