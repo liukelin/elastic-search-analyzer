@@ -70,7 +70,7 @@
 
     开始为了快速写个demo用了php，随着开发，其实用python、或者go更好...
     end... 抽空继续完善中....
-     
+
 
 ~~~
 
@@ -204,8 +204,13 @@ end...
     Completion Suggester
     Context Suggester
 
-    
+    1、创建 Completion 来作为前缀补全
 
+    2、如果前缀补全无法匹配到，则尝试用 Term - analyzer 分词匹配（有点类似于纠错了）
+
+    3、对于较长长的输入，可优先使用分词再 Completion
+
+    4、... 其他策略待定
 
 Suggesters API官方文档：
 
