@@ -197,20 +197,22 @@ end...
     7、输入搜索建议 Suggesters API
 
     Suggesters基本的运作原理是将输入的文本分解为token，然后在索引的字典里查找相似的term并返回。 
-    根据使用场景的不同，Elasticsearch里设计了4种类别的Suggester，分别是:
+    根据使用场景的不同，Elasticsearch里设计了4种类别的 Suggester ，分别是:
 
     Term Suggester
     Phrase Suggester
     Completion Suggester
     Context Suggester
 
-    1、创建 Completion 来作为前缀补全
+    1、将使用的远程词库导入到 Suggester 作为搜索建议词库
 
-    2、如果前缀补全无法匹配到，则尝试用 Term - analyzer 分词匹配（有点类似于纠错了）
+    2、创建 Completion 来作为前缀补全
 
-    3、对于较长长的输入，可优先使用分词再 Completion
+    3、如果前缀补全无法匹配到，则尝试用 Term - analyzer 分词匹配（有点类似于纠错了）
 
-    4、... 其他策略待定
+    4、对于较长长的输入，可优先使用分词再 Completion
+
+    5、... 其他策略待定
 
 Suggesters API官方文档：
 
