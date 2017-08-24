@@ -216,6 +216,10 @@ end...
 
     6、... 其他策略待定
 
+![image](https://raw.githubusercontent.com/liukelin/elastic-search-analyzer/master/img/suggest-demo1.png)
+![image](https://raw.githubusercontent.com/liukelin/elastic-search-analyzer/master/img/suggest-demo2.png)
+
+
 Suggesters API官方文档：
 
 [https://www.elastic.co/guide/en/elasticsearch/reference/current/search-suggesters.html](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-suggesters.html)
