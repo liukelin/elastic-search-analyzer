@@ -148,6 +148,7 @@ class File extends Driver
             //数据压缩
             $data = gzcompress($data, 3);
         }
+        $data = str_replace(PHP_EOL, '', $data);
         $data   = "<?php\n//" . sprintf('%012d', $expire) . $data . "\n?>";
         $result = file_put_contents($filename, $data);
         if ($result) {
