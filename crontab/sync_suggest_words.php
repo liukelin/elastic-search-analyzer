@@ -22,6 +22,7 @@ $words = array();
 
 switch ($action) {
     case 'hot_word': // 加入热词
+        echo "[".date('Y-m-d H:i:s')."] start action=hot_word \n\r";
 
         $allow = array('mydict.dic','sougou.dic','test.dic','custom_word.dic'); // 允许文件
         $ban = array('single_word_low_freq.dic'); // 屏蔽文件
@@ -63,6 +64,7 @@ switch ($action) {
     default:
         break;
 }
+echo "[".date('Y-m-d H:i:s')."] success.\n\r";
 
 foreach ($words as $k => $word) {
     put_suggest($es , $word, md5($word), 0, 1);
