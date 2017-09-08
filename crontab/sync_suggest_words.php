@@ -24,7 +24,7 @@ switch ($action) {
     case 'hot_word': // 加入热词
         echo "[".date('Y-m-d H:i:s')."] start action=hot_word \n\r";
 
-        $allow = array('mydict.dic','sougou.dic','test.dic','custom_word.dic'); // 允许文件
+        $allow = array('mydict.dic','sougou.dic','test.dic','custom_word.dic','main.dic'); // 允许文件
         $ban = array('single_word_low_freq.dic'); // 屏蔽文件
 
         $files = array();

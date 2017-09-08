@@ -221,16 +221,17 @@ switch ($action) {
 
         exit(json_encode($ret));
         break;
-    case 'suggester': // 输入 词库 纠错补全api
+    case 'suggester': // 输入搜索建议 词库 纠错补全api
 
         $term = isset_key($_REQUEST, 'term', null);
 
         $suggester = array();
         if ($term) {
-        
+            
+            // 前缀补全
             $params = array(
                 "suggest"=> array(
-                    "suggest-test-doc"=> array(
+                    "suggest-1"=> array(
                         "text"=> $term, // prefix
                         "completion"=> array(
                             "field"=> "suggest",
@@ -244,8 +245,9 @@ switch ($action) {
             $url = "{$es['host']}/{$es['suggest']['index']}/{$es['suggest']['type']}/_search/";
             $output = curl_($url, json_encode($params), 'post');
             $data = json_decode($output, true);
-            if (isset($data['suggest']) && isset($data['suggest'][$es['suggest']['type']])) {
-                $list = $data['suggest'][$es['suggest']['type']];
+
+            if (isset($data['suggest']) && isset($data['suggest']['suggest-1'])) {
+                $list = $data['suggest']['suggest-1'];
                 foreach ($list as $k => $val) {
                     foreach ($val['options'] as $k1 => $val1) {
                         if (isset($val1['_source']) && isset($val1['_source']['suggest'])) {
@@ -256,6 +258,11 @@ switch ($action) {
                     }
                 }
             }
+
+            // 分词补全
+            
+
+
         }
 
         $suggester[] = '开发调试中...';
@@ -263,6 +270,7 @@ switch ($action) {
         break;
     
     default:
+        exit('error.');
         break;
 }
 
@@ -301,15 +309,56 @@ function curl_($url, $data, $action='get'){
 }
 
 /**
- * [elastic 操作方法]
- * @return [type] [description]
+ * 获取分词结果
+ * @param  [type] $es   [description]
+ * @param  [type] $word [description]
+ * @param  string $type [description]
+ * @return [type]       [description]
  */
-function elastic_query($es, $params){
-
+function elastic_analyzer($es, $word, $type='ik_max_word'){
+    $url = "{$es['host']}/_analyze?pretty&analyzer={$type}";
+    $output = curl_($url, json_encode(array('text'=>$word)), 'post');
+    $data = json_decode($output, true);
+    return $data;
 }
 
 
 /**
+ * [elastic 操作方法]
+ * @return [type] [description]
+ */
+function elastic_query($es, $params){
+    
+}
+
+
+/**
+ 
+ curl -XPUT http://localhost:9200/ik-test/_mapping/ik-test-doc/ -d
+            '{
+              "properties": {
+                "content": {
+                  "type": "text",
+                  "analyzer": "ik_max_word",
+                  "store": "no",
+                  "term_vector": "with_positions_offsets",
+                  "search_analyzer": "ik_max_word",
+                  "include_in_all": "true",
+                  "boost": 1
+                },
+                "content1": {
+                  "type": "text",
+                  "analyzer": "ik_smart",
+                  "store": "no",
+                  "term_vector": "with_positions_offsets",
+                  "search_analyzer": "ik_smart",
+                  "include_in_all": "true",
+                  "boost": 1
+                }
+              }
+            }'
+
+
 _analyze: 
 {
     "tokens": [
