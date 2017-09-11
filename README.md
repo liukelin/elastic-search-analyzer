@@ -227,5 +227,5 @@ Suggesters API官方文档：
 
 demo地址:
 
-[https://demo.liukelin.top/elastic-search-analyzer/analyzer.html](http://demo1.liukelin.top/elastic-search-analyzer/analyzer.html)
+[https://demo.liukelin.top/elastic-search-analyzer/analyzer.html](https://demo.liukelin.top/elastic-search-analyzer/analyzer.html)
 
