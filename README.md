@@ -162,7 +162,7 @@
 
     6、测试搜索分词
         
-        curl -XPOST http://localhost:9200/test-ik/_search/ -d
+        curl -XPOST http://localhost:9200/ik-test/_search/ -d
         '{
           "query" : { 
             "match" : { 
