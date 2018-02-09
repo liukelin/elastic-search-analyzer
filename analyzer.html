@@ -293,6 +293,7 @@ div.analyze_div span {
                                     alert(data.msg);
                                     $('#text_content').val('');
                                     $( "#add_content_dialog" ).dialog("close");
+                                    _search();
                                 }
                             });
 
@@ -311,6 +312,7 @@ div.analyze_div span {
             success: function(data){
                 if (data.ret==0) {
                     $('#cont_'+id).hide();
+                    
                 }else{
                     alert(data.msg)
                 }
