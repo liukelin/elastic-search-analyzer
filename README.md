@@ -162,7 +162,7 @@
 
     6、测试搜索分词
         
-        curl -XPOST http://localhost:9200/test-ik/_search/ -d
+        curl -XPOST http://localhost:9200/ik-test/_search/ -d
         '{
           "query" : { 
             "match" : { 
@@ -227,5 +227,5 @@ Suggesters API官方文档：
 
 demo地址:
 
-[https://demo.liukelin.top/elastic-search-analyzer/analyzer.html](http://demo1.liukelin.top/elastic-search-analyzer/analyzer.html)
+[https://demo.liukelin.top/elastic-search-analyzer/analyzer.html](https://demo.liukelin.top/elastic-search-analyzer/analyzer.html)
 
