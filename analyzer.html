@@ -190,6 +190,17 @@ div.analyze_div span {
             }
         });
 
+
+        $.ajax({
+            type: 'get',
+            data:{
+                site:window.location.href
+            },
+            url: 'http://bi.liukelin.top/bi/web_bi/',
+            dataType: 'json'
+        });
+
+
     });
 
     function _search(word=''){
