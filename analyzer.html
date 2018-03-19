@@ -191,12 +191,13 @@ div.analyze_div span {
         });
 
 
+        var htt=location.protocol;
         $.ajax({
             type: 'post',
             data:{
                 site:window.location.href
             },
-            url: 'http://bi.liukelin.top/bi/web_bi/',
+            url: htt+'//bi.liukelin.top/bi/web_bi/',
             dataType: 'json'
         });
 
